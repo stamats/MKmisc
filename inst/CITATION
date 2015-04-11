@@ -1,0 +1,10 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype="Manual",
+         title = "{MKmisc}: Miscellaneous functions from {M}. {K}ohl",
+         author = person("Matthias", "Kohl"),
+         language = "English",
+         year = year,
+         note = note,
+         url = "http://www.stamats.de")
