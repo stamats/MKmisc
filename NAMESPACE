@@ -1,0 +1,36 @@
+import("RColorBrewer")
+importFrom("robustbase", "covMcd", "covOGK")
+export(ssize.pcc,
+       predValues,
+       quantileCI,
+       medianCI,
+       power.diagnostic.test,
+       AUC,
+       AUC.test,
+       binomCI,
+       corDist,
+       stringDist,
+       stringSim,
+       traceBack,
+       corPlot,
+       fiveNS,
+       heatmapCol,
+       HLgof.test,
+       IQrange,
+       madMatrix,
+       madPlot,
+       simPlot,
+       oneWayAnova,
+       or2rr,
+       pairwise.auc,
+       pairwise.fc,
+       pairwise.logfc,
+       pairwise.fun,
+       qbxp.stats,
+       qboxplot,
+       qboxplot.default,
+       repMeans,
+       twoWayAnova)
+       
+S3method(qboxplot, default)
+S3method(qboxplot, formula)
