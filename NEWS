@@ -1,0 +1,100 @@
+###############################################################################
+## NEWS to package MKmisc
+###############################################################################
+
+###########################################################
+## Version 0.98
+###########################################################
+- added function predValues to compute PPV and NPV
+- added function ssize.pcc to calculate sample sizes for developing classifiers
+  using high-dimensional data
+- provide a more detailed description of the package in the DESCRIPTION file
+
+
+###########################################################
+## Version 0.97
+###########################################################
+- corrected copy and paste error in documentation of quantileCI.
+- added function or2rr to transform OR to RR.
+- CITATION file now uses bibentry
+- added argument minLength to quantileCI and medianCI
+
+
+###########################################################
+## Version 0.96
+###########################################################
+- corrected a bug identified by Steven Kern in the modified Jeffreys interval
+  for binomial proportions.
+
+
+###########################################################
+## Version 0.95
+###########################################################
+- added functions quantileCI and medianCI to compute confidence intervals
+  for quantiles
+- moved RColorBrewer and robustbase from Depends to Imports
+- corrected some minor bugs in traceBack and corDist
+
+
+###########################################################
+## Version 0.94
+###########################################################
+- added function stringSim to compute optimal global and local alignment scores
+  (Needleman-Wunsch and Smith-Waterman algorithm with constant gap penalties)
+- added function traceBack to compute an optimal alignment based on the
+  trace back matrix included in objects of class stringDist or stringSim
+- corrected bug in function stringDist: wrong initialisation for Levenshtein
+  distance
+
+
+###########################################################
+## Version 0.93
+###########################################################
+- added function power.diagnostic.test to compute power resp. sample size
+  for a diagnostic test by approach of Flahault et al. (2005) incorporating
+  the correction of Chu and Cole (2007)
+
+
+###########################################################
+## Version 0.92
+###########################################################
+- added an additional Parameter to function AUC, which can be used to suppress
+  switching of the AUC values from x to 1-x if x < 0.5 
+  (a request by Yuta Tanoue)
+
+
+###########################################################
+## Version 0.91
+###########################################################
+- added function stringDist to compute Hamming and Levenshtein distance of two
+  strings (sequences)
+
+
+###########################################################
+## Version 0.9
+###########################################################
+- extended simPlot and corPlot by argument "lab.both.axes" which also to add 
+  labels on both axes (a request by Sunghee OH).
+- example to HLgof.test was wrong as pointed out by Dan O'Shea. This was 
+  corrected and the function slightly modified (intercept is no longer added
+  inside of HLgof.test for the le Cessie-van Houwelingen-Copas-Hosmer 
+  unweighted sum of squares test for global goodness of fit)
+
+
+###########################################################
+## Version 0.8
+###########################################################
+- added function simPlot for plotting similarity matrices (a slight 
+  modification of function corPlot)
+
+
+###########################################################
+## Version 0.7
+###########################################################
+- added NEWS file
+- modified function oneWayAnova: instead of lm and anova now oneway.test is
+  used allowing for unequal variances 
+- added functions AUC, pairwise.auc and AUC.test as well as pairwise.fun and 
+  HLgof.test
+- added NAMESPACE file
+
