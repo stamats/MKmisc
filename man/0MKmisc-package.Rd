@@ -6,14 +6,16 @@
 Miscellaneous Functions from M. Kohl.
 }
 \description{
-Miscellaneous Functions from M. Kohl.
+Contains several functions for statistical data analysis; e.g. for sample size
+and power calculations, computation of confidence intervals, and generation of
+similarity matrices.
 }
 \details{
 \tabular{ll}{
 Package: \tab MKmisc\cr
 Type: \tab Package\cr
 Version: \tab 0.98\cr
-Date: \tab 2015-03-27\cr
+Date: \tab 2015-03-29\cr
 Depends: \tab R(>= 2.14.0), stats, graphics\cr
 Imports: \tab RColorBrewer, robustbase\cr
 Suggests: \tab gplots\cr
