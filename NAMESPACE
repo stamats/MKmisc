@@ -1,6 +1,10 @@
-import("RColorBrewer")
+import("stats")
+importFrom("graphics", "layout", "image", "axis", "box", "par")
+importFrom("grDevices", "colorRampPalette")
 importFrom("robustbase", "covMcd", "covOGK")
-export(ssize.pcc,
+importFrom("RColorBrewer", "brewer.pal")
+export(mi.t.test,
+       ssize.pcc,
        predValues,
        quantileCI,
        medianCI,
@@ -31,6 +35,7 @@ export(ssize.pcc,
        qboxplot.default,
        repMeans,
        twoWayAnova)
-       
+
 S3method(qboxplot, default)
 S3method(qboxplot, formula)
+S3method(mi.t.test, default)
