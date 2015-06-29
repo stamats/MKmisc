@@ -1,3 +1,2 @@
 # MKmisc
-R package MKmisc
-Version 0.98
+Version 0.98 of R package MKmisc
