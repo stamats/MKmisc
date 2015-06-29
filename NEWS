@@ -10,6 +10,7 @@
   imports directives to NAMESPACE file
 - added grDevices to Imports
 - use of importFrom in NAMESPACE file except for package stats
+- added Amelia to Suggests
 
 
 ###########################################################
