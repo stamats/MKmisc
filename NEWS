@@ -3,6 +3,16 @@
 ###############################################################################
 
 ###########################################################
+## Version 0.99
+###########################################################
+- added function to compute t-test based on multiple imputed datasets
+- moved packages stats and graphics from Depends to Imports and added respective
+  imports directives to NAMESPACE file
+- added grDevices to Imports
+- use of importFrom in NAMESPACE file except for package stats
+
+
+###########################################################
 ## Version 0.98
 ###########################################################
 - added function predValues to compute PPV and NPV
@@ -59,7 +69,7 @@
 ## Version 0.92
 ###########################################################
 - added an additional Parameter to function AUC, which can be used to suppress
-  switching of the AUC values from x to 1-x if x < 0.5 
+  switching of the AUC values from x to 1-x if x < 0.5
   (a request by Yuta Tanoue)
 
 
@@ -73,18 +83,18 @@
 ###########################################################
 ## Version 0.9
 ###########################################################
-- extended simPlot and corPlot by argument "lab.both.axes" which also to add 
+- extended simPlot and corPlot by argument "lab.both.axes" which also to add
   labels on both axes (a request by Sunghee OH).
-- example to HLgof.test was wrong as pointed out by Dan O'Shea. This was 
+- example to HLgof.test was wrong as pointed out by Dan O'Shea. This was
   corrected and the function slightly modified (intercept is no longer added
-  inside of HLgof.test for the le Cessie-van Houwelingen-Copas-Hosmer 
+  inside of HLgof.test for the le Cessie-van Houwelingen-Copas-Hosmer
   unweighted sum of squares test for global goodness of fit)
 
 
 ###########################################################
 ## Version 0.8
 ###########################################################
-- added function simPlot for plotting similarity matrices (a slight 
+- added function simPlot for plotting similarity matrices (a slight
   modification of function corPlot)
 
 
@@ -93,8 +103,8 @@
 ###########################################################
 - added NEWS file
 - modified function oneWayAnova: instead of lm and anova now oneway.test is
-  used allowing for unequal variances 
-- added functions AUC, pairwise.auc and AUC.test as well as pairwise.fun and 
+  used allowing for unequal variances
+- added functions AUC, pairwise.auc and AUC.test as well as pairwise.fun and
   HLgof.test
 - added NAMESPACE file
 
