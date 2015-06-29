@@ -14,11 +14,11 @@ similarity matrices.
 \tabular{ll}{
 Package: \tab MKmisc\cr
 Type: \tab Package\cr
-Version: \tab 0.98\cr
-Date: \tab 2015-03-29\cr
-Depends: \tab R(>= 2.14.0), stats, graphics\cr
-Imports: \tab RColorBrewer, robustbase\cr
-Suggests: \tab gplots\cr
+Version: \tab 0.99\cr
+Date: \tab 2015-06-29\cr
+Depends: \tab R(>= 2.14.0)\cr
+Imports: \tab stats, graphics, grDevices, RColorBrewer, robustbase\cr
+Suggests: \tab gplots, Amelia\cr
 License: \tab LGPL-3\cr
 URL: \tab http://www.stamats.de/\cr
 }
