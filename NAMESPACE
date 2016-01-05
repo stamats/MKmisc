@@ -3,7 +3,8 @@ importFrom("graphics", "layout", "image", "axis", "box", "par")
 importFrom("grDevices", "colorRampPalette")
 importFrom("robustbase", "covMcd", "covOGK")
 importFrom("RColorBrewer", "brewer.pal")
-export(mi.t.test,
+export(simCorVars,
+       mi.t.test,
        ssize.pcc,
        predValues,
        quantileCI,
