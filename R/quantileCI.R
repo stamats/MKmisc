@@ -1,5 +1,5 @@
 ## Confidence Intervals for quantiles
-quantileCI <- function(x, prob = 0.5, conf.level = 0.95, method = "exact", 
+quantileCI <- function(x, prob = 0.5, conf.level = 0.95, method = "exact",
                        minLength = FALSE, na.rm = FALSE){
     cl <- match.call()
     if(!is.na(pmatch(method, "exact")))
@@ -25,9 +25,9 @@ quantileCI <- function(x, prob = 0.5, conf.level = 0.95, method = "exact",
     z <- qnorm(1-alpha/2)
     if(na.rm) x <- x[!is.na(x)]
     n <- length(x)
-    est <- median(x)
+    est <- quantile(x, prob = prob)
     xs <- sort(x)
-    
+
     if(method == 1){ # exact
         CI.mat <- matrix(NA, ncol = 2, nrow = n-1)
         pcov.vec <- numeric(n-1)
@@ -68,7 +68,7 @@ quantileCI <- function(x, prob = 0.5, conf.level = 0.95, method = "exact",
 
 medianCI <- function(x, conf.level = 0.95, method = "exact", minLength = FALSE, na.rm = FALSE){
     cl <- match.call()
-    res <- quantileCI(x, prob = 0.5, conf.level = conf.level, method = method, 
+    res <- quantileCI(x, prob = 0.5, conf.level = conf.level, method = method,
                       minLength = minLength, na.rm = na.rm)
     res$call <- cl
     res
