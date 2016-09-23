@@ -73,3 +73,12 @@ medianCI <- function(x, conf.level = 0.95, method = "exact", minLength = FALSE, 
     res$call <- cl
     res
 }
+
+madCI <- function(x, conf.level = 0.95, method = "exact", minLength = FALSE, na.rm = FALSE, constant = 1.4826){
+  cl <- match.call()
+  M <- median(x, na.rm = na.rm)
+  res <- medianCI(constant*abs(x-M), conf.level = conf.level,
+                  method = method, minLength = minLength, na.rm = na.rm)
+  res$call <- cl
+  res
+}

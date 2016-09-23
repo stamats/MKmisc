@@ -3,9 +3,14 @@
 ###############################################################################
 
 ###########################################################
+## Version 0.993
+###########################################################
+- added function madCI for computing confidence intervals for MAD
+
+###########################################################
 ## Version 0.992
 ###########################################################
-- corrected bug in quantileCI reproted by Rogier Donders (estimate always
+- corrected bug in quantileCI reported by Rogier Donders (estimate always
   median independent of specified prob)
 
 ###########################################################
