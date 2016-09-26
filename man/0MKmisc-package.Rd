@@ -14,8 +14,8 @@ similarity matrices.
 \tabular{ll}{
 Package: \tab MKmisc\cr
 Type: \tab Package\cr
-Version: \tab 0.993\cr
-Date: \tab 2016-09-23\cr
+Version: \tab 0.994\cr
+Date: \tab 2016-09-26\cr
 Depends: \tab R(>= 2.14.0)\cr
 Imports: \tab stats, graphics, grDevices, RColorBrewer, robustbase\cr
 Suggests: \tab gplots, Amelia\cr

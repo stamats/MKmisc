@@ -3,6 +3,12 @@
 ###############################################################################
 
 ###########################################################
+## Version 0.994
+###########################################################
+- added function power.nb.test for computing sample size or power for comparing
+  two negative binomial rates
+
+###########################################################
 ## Version 0.993
 ###########################################################
 - added function madCI for computing confidence intervals for MAD
