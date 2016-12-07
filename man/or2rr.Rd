@@ -2,28 +2,31 @@
 \alias{or2rr}
 \title{ Transform OR to RR }
 \description{
-  The function transforms a given odds-ratio (OR) to the respective 
+  The function transforms a given odds-ratio (OR) to the respective
   relative risk (RR).
 }
 \usage{
-or2rr(or, p0)
+or2rr(or, p0, p1)
 }
 \arguments{
   \item{or}{ numeric vector: OR (odds-ratio). }
-  \item{p0}{ numeric vector: incidence of the outcome of interest in the 
+  \item{p0}{ numeric vector of length 1: incidence of the outcome of interest in the
              nonexposed group.}
+  \item{p1}{ numeric vector of length 1: incidence of the outcome of interest in the
+             exposed group.}
 }
 \details{
-  The function transforms a given odds-ratio (OR) to the respective 
-  relative risk (RR). It can also be used to transform the limits 
+  The function transforms a given odds-ratio (OR) to the respective
+  relative risk (RR). It can also be used to transform the limits
   of confidence intervals.
-  
-  It uses the formula of Zhang and Yu (1998).
+
+  The formulas can be derived by combining the formulas for RR and OR; see
+  also Zhang and Yu (1998).
 }
 \value{
   relative risk.
 }
-\references{ 
+\references{
   Zhang, J. and Yu, K. F. (1998). What's the relative risk? A method of correcting the odds ratio in cohort
   studies of common outcomes. \emph{JAMA}, \bold{280}(19):1690-1691.
 }
@@ -31,8 +34,14 @@ or2rr(or, p0)
 \examples{
 ## We use data from Zhang and Yu (1998)
 
-## single OR to RR
+## OR to RR using OR and RR
 or2rr(14.1, 0.05)
+
+## compute p1
+or2rr(14.1, 0.05)*0.05
+
+## OR to RR using OR and p1
+or2rr(14.1, p1 = 0.426)
 
 ## OR and 95% confidence interval
 or2rr(c(14.1, 7.8, 27.5), 0.05)
@@ -64,7 +73,7 @@ RR <- or2rr.mat(logisticOR, p0)
 round(RR, 2)
 
 ## Results are not completely identical to Zhang and Yu (1998)
-## what probably is caused by the fact that the logistic OR values 
-## provided in the table are rounded and not true values.
+## what probably is caused by the fact that the logistic OR values
+## provided in the table are rounded and are not exact values.
 }
 \keyword{univar}
