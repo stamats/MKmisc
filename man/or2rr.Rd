@@ -34,7 +34,7 @@ or2rr(or, p0, p1)
 \examples{
 ## We use data from Zhang and Yu (1998)
 
-## OR to RR using OR and RR
+## OR to RR using OR and p0
 or2rr(14.1, 0.05)
 
 ## compute p1
