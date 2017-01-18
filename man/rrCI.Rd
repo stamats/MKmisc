@@ -17,7 +17,7 @@ rrCI(a, b, c, d, conf.level = 0.95)
 }
 \details{
   The function computes an approximate confidence interval for the relative
-  risk (RR) based on the normal approximation; see Jewell (2014).
+  risk (RR) based on the normal approximation; see Jewell (2004).
 }
 \value{
   Vector including several risk measures.
