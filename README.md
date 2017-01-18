@@ -23,5 +23,5 @@ devtools::install_github("stamats/MKmisc")
 ## Getting started
 
 ```{r}
-library(tidyr)
+library(MKmisc)
 ```
