@@ -1,7 +1,7 @@
 # MKmisc <img src="logo.png" align="right" />
 The repository includes the development version of R package MKmisc
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/MKmisc)](http://cran.r-project.org/package=MKmisc)
+Release version: [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/MKmisc)](http://cran.r-project.org/package=MKmisc)
 
 ## Description
 The package contains several functions for statistical data analysis; e.g. for 
