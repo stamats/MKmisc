@@ -46,3 +46,4 @@ export(simCorVars,
 S3method(qboxplot, default)
 S3method(qboxplot, formula)
 S3method(mi.t.test, default)
+S3method(print, confint)

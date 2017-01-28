@@ -20,7 +20,9 @@ rrCI(a, b, c, d, conf.level = 0.95)
   risk (RR) based on the normal approximation; see Jewell (2004).
 }
 \value{
-  Vector including several risk measures.
+  A list with class \code{"confint"} containing the following components:
+  \item{estimate}{ the estimated relative risk. }
+  \item{conf.int}{ a confidence interval for the relative risk. }
 }
 \references{
   Jewell, Nicholas P. (2004). Statistics for epidemiology. Chapman & Hall/CRC.

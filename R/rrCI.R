@@ -12,9 +12,16 @@ rrCI <- function(a, b, c, d, conf.level = 0.95){
 
   alpha <- 1 - conf.level
   k <- qnorm(1-alpha/2)
+
   CI.lower <- exp(log(RR) - k*s)
   CI.upper <- exp(log(RR) + k*s)
-  CI <- c(CI.lower, CI.upper)
-  attr(CI, "confidence level") <- conf.level
-  return(list("RR" = RR, "CI" = CI))
+  CI <- matrix(c(CI.lower, CI.upper), nrow = 1)
+  rownames(CI) <- "relative risk"
+  colnames(CI) <- c(paste(alpha/2*100, "%"), paste((1-alpha/2)*100, "%"))
+  attr(CI, "conf.level") <- conf.level
+  names(RR) <- "relative risk"
+
+  return(structure(list("estimate" = RR, "conf.int" = CI,
+                        "method" = "asymptotic confidence interval"),
+                   class = "confint"))
 }

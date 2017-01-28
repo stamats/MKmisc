@@ -52,9 +52,9 @@ binomCI(x, n, conf.level = 0.95, method = "wilson", rand = 123)
   For more details we refer to Brown et al (2001) as well as Witting (1985).
 }
 \value{
-  A list with components
+  A list with class \code{"confint"} containing the following components:
   \item{estimate}{ the estimated probability of success. }
-  \item{CI}{ a confidence interval for the probability of success. }
+  \item{conf.int}{ a confidence interval for the probability of success. }
 }
 \references{
   A. Agresti and B.A. Coull (1998). Approximate is better than "exact" for interval

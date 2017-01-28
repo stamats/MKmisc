@@ -3,7 +3,7 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
     if (!is.na(pmatch(method, "wilson")))
         method <- "wilson"
 
-    METHODS <- c("wald", "wilson", "agresti-coull", "jeffreys", "modified wilson", 
+    METHODS <- c("wald", "wilson", "agresti-coull", "jeffreys", "modified wilson",
                  "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting")
     method <- pmatch(method, METHODS)
 
@@ -121,7 +121,7 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
         x.tilde <- x + runif(1, min = 0, max = 1)
         pbinom.abscont <- function(q, size, prob){
             v <- trunc(q)
-            term1 <- pbinom(v-1, size = size, prob = prob) 
+            term1 <- pbinom(v-1, size = size, prob = prob)
             term2 <- (q - v)*dbinom(v, size = size, prob = prob)
             return(term1 + term2)
         }
@@ -136,7 +136,13 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
         CI.upper <- qbinom.abscont(alpha, size = n, x = x.tilde)
     }
 
-    CI <- c(CI.lower, CI.upper)
-    attr(CI, "confidence level") <- conf.level
-    return(list("estimate" = est, "CI" = CI))
+    CI <- matrix(c(CI.lower, CI.upper), nrow = 1)
+    rownames(CI) <- "prob"
+    colnames(CI) <- c(paste(alpha/2*100, "%"), paste((1-alpha/2)*100, "%"))
+    attr(CI, "conf.level") <- conf.level
+    names(est) <- "prob"
+
+    return(structure(list("estimate" = est, "conf.int" = CI,
+                          "method" = paste(METHODS[method], "confidence interval")),
+                     class = "confint"))
 }

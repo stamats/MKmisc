@@ -51,8 +51,8 @@ madCI(x, conf.level = 0.95, method = "exact", minLength = FALSE,
 set.seed(123)
 x <- rnorm(8)
 ## exact confidence interval not unique
-(res <- medianCI(x))
-(res <- madCI(x))
+medianCI(x)
+madCI(x)
 
 ## minimum length exact confidence interval
 medianCI(x, minLength = TRUE)
@@ -61,9 +61,6 @@ madCI(x, minLength = TRUE)
 ## asymptotic confidence interval
 medianCI(x, method = "asymptotic")
 madCI(x, method = "asymptotic")
-
-## length of exact intervals
-res$CI[,2]-res$CI[,1]
 
 ## confidence interval for quantiles
 quantileCI(x, prob = 0.4)
