@@ -22,7 +22,7 @@ thyroid(TSH, fT3, fT4, TSHref, fT3ref, fT4ref)
   using a barplot. Relative values between 40\% and 60\% are marked as O.K..
 }
 \value{
-  Invisible data.frame with the relative values.
+  Invisible \code{data.frame} with the relative values.
 }
 %\references{}
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
@@ -30,4 +30,4 @@ thyroid(TSH, fT3, fT4, TSHref, fT3ref, fT4ref)
 thyroid(TSH = 1.5, fT3 = 2.5, fT4 = 14, TSHref = c(0.2, 3.0),
         fT3ref = c(1.7, 4.2), fT4ref = c(7.6, 15.0))
 }
-\keyword{univar}
+\keyword{hplot}

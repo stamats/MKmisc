@@ -5,7 +5,9 @@
 ###########################################################
 ## Version 0.999
 ###########################################################
-- adden new function thyroid for plotting TSH, fT3, fT4
+- added new function perfMeasures to compute various performance measures
+  for binary classification
+- added new function thyroid for plotting TSH, fT3, fT4
 - removed upper bound n = 100 in modified wilson confidence interval
   (thanks to Andri Signorell for detecting this inconsistency)
 
