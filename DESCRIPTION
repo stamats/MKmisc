@@ -1,13 +1,13 @@
 Package: MKmisc
-Version: 0.998
-Date: 2017-01-28
+Version: 0.999
+Date: 2018-03-07
 Title: Miscellaneous Functions from M. Kohl
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de")
 Author: Matthias Kohl [aut, cre]
 Maintainer: Matthias Kohl <Matthias.Kohl@stamats.de>
 Depends: R(>= 2.14.0)
-Imports: stats, graphics, grDevices, RColorBrewer, robustbase
+Imports: stats, graphics, grDevices, RColorBrewer, robustbase, ggplot2
 Suggests: gplots, Amelia
 Description: Contains several functions for statistical data analysis; e.g. for sample size and power calculations, computation of confidence intervals, and generation of similarity matrices.
 License: LGPL-3

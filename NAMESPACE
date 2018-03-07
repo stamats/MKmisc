@@ -1,4 +1,4 @@
-import("stats")
+import("stats", "ggplot2")
 importFrom("graphics", "layout", "image", "axis", "box", "par")
 importFrom("grDevices", "colorRampPalette")
 importFrom("robustbase", "covMcd", "covOGK")
@@ -41,6 +41,7 @@ export(simCorVars,
        qboxplot,
        qboxplot.default,
        repMeans,
+       thyroid,
        twoWayAnova)
 
 S3method(qboxplot, default)
