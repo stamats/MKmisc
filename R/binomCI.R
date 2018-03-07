@@ -67,12 +67,12 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
         est <- p.hat
         term1 <- (x + kappa^2/2)/(n + kappa^2)
         term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
-        if((n <= 50 & x %in% c(1, 2)) | (n >= 51 & n <= 100 & x %in% c(1:3)))
+        if((n <= 50 & x %in% c(1, 2)) | (n >= 51 & x %in% c(1:3)))
             CI.lower <- 0.5*qchisq(alpha, 2*x)/n
         else
             CI.lower <-  max(0, term1 - term2)
 
-        if((n <= 50 & x %in% c(n-1, n-2)) | (n >= 51 & n <= 100 & x %in% c(n-(1:3))))
+        if((n <= 50 & x %in% c(n-1, n-2)) | (n >= 51 & x %in% c(n-(1:3))))
             CI.upper <- 1 - 0.5*qchisq(alpha, 2*(n-x))/n
         else
             CI.upper <- min(1, term1 + term2)
