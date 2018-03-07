@@ -3,10 +3,17 @@
 ###############################################################################
 
 ###########################################################
+## Version 0.999
+###########################################################
+- adden new function thyroid for plotting TSH, fT3, fT4
+- removed upper bound n = 100 in modified wilson confidence interval
+  (thanks to Andri Signorell for detecting this inconsistency)
+
+###########################################################
 ## Version 0.998
 ###########################################################
 - extended function normCI - now mean or sd can be known
-- added print function for confidenc intervals
+- added print function for confidence intervals
 
 ###########################################################
 ## Version 0.997
