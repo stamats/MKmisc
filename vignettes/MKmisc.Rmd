@@ -1,0 +1,567 @@
+---
+title: "Package MKmisc"
+author: "Matthias Kohl"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{MKmisc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{latin1}
+---
+
+
+## Introduction  
+Package MKmisc includes a collection of functions that I found useful in my 
+daily work. It contains several functions for statistical data analysis; e.g. 
+for sample size and power calculations, computation of confidence intervals, 
+and generation of similarity matrices.
+
+We first load the package.
+```{r}
+library(MKmisc)
+```
+
+## Descriptive Statistics
+### IQR
+I implemented function IQrange before the standard function IQR gained the 
+type argument. Since 2010 (r53643, r53644) the function is identical to 
+function IQR.
+```{r}
+x <- rnorm(100)
+IQrange(x)
+IQR(x)
+```
+
+It is also possible to compute a standardized version of the IQR leading to a
+normal-consistent estimate of the standard deviation.
+```{r}
+sIQR(x)
+sd(x)
+```
+
+
+### Five Number Summary
+There are several functions for descriptive statistics. First, there is a function
+that computes a so-called five number summary which in contrast to function 
+fivenum uses the first and third quartile instead of the lower and upper hing.
+```{r}
+fiveNS(x)
+```
+
+
+### Box- and Whisker-Plot
+In contrast to the standard function boxplot which uses the lower and upper 
+hinge for defining the box and the whiskers, the function qboxplot uses the
+first and third quartile.
+```{r, fig.width=7, fig.height=7}
+x <- rt(10, df = 3)
+par(mfrow = c(1,2))
+qboxplot(x, main = "1st and 3rd quartile")
+boxplot(x, main = "Lower and upper hinge")
+```
+
+The difference between the two versions often is hardly visible.
+
+
+### OR, RR and Other Risk Measures
+Given the incidence of the outcome of interest in the nonexposed (p0) and 
+exposed (p1) group, several risk measures can be computed.
+```{r}
+## Example from Wikipedia
+risks(p0 = 0.4, p1 = 0.1)
+risks(p0 = 0.4, p1 = 0.5)
+```
+
+Given p0 or p1 and OR, we can compute the respective RR.
+```{r}
+or2rr(or = 1.5, p0 = 0.4)
+or2rr(or = 1/6, p1 = 0.1)
+```
+
+
+### Simulate Correlated Variables
+To demonstrate Pearson correlation in my lectures, I have written this simple
+function to simulate correlated variables and to generate a scatter plot of
+the data.
+```{r, fig.width=7, fig.height=7}
+res <- simCorVars(n = 500, r = 0.8)
+cor(res$Var1, res$Var2)
+```
+
+
+### Plot TSH, fT3 and fT4 Values
+The thyroid function is usually investigated by determining the values of 
+TSH, fT3 and fT4. The function thyroid can be used to visualize the measured
+values as relative values with respect to the provided reference ranges.
+```{r, fig.width=7, fig.height=7}
+thyroid(TSH = 1.5, fT3 = 2.5, fT4 = 14, TSHref = c(0.2, 3.0),
+        fT3ref = c(1.7, 4.2), fT4ref = c(7.6, 15.0))
+```
+
+
+## Confidence Intervals
+### Binomial Proportion
+There are several functions for computing confidence intervals. We can compute
+10 different confidence intervals for binomial proportions; e.g.
+```{r}
+## default: "wilson"
+binomCI(x = 12, n = 50)
+## Clopper-Pearson interval
+binomCI(x = 12, n = 50, method = "clopper-pearson")
+## identical to 
+binom.test(x = 12, n = 50)$conf.int
+```
+
+For all intervals implemented see the help page of function binomCI.
+
+
+### Mean and SD
+We can compute confidence intervals for mean and SD of a normal distribution.
+```{r}
+x <- rnorm(50, mean = 2, sd = 3)
+## mean and SD unknown
+normCI(x)
+## SD known
+normCI(x, sd = 3)
+## mean known
+normCI(x, mean = 2)
+```
+
+### Quantiles, Median and MAD
+We start with the computation of confidence intervals for quantiles.
+```{r}
+x <- rexp(100, rate = 0.5)
+## exact
+quantileCI(x = x, prob = 0.95)
+## asymptotic
+quantileCI(x = x, prob = 0.95, method = "asymptotic")
+```
+
+Next, we consider the median.
+```{r}
+## exact
+medianCI(x = x)
+## asymptotic
+medianCI(x = x, method = "asymptotic")
+```
+
+It often happens that quantile confidence intervals are not unique. Here the
+minimum length interval might be of interest.
+```{r}
+medianCI(x = x, minLength = TRUE)
+```
+
+Finally, we take a look at MAD (median absolute deviation) where by default 
+the standardized MAD is used (see function mad).
+```{r}
+## exact
+madCI(x = x)
+## aysymptotic
+madCI(x = x, method = "asymptotic")
+## unstandardized
+madCI(x = x, constant = 1)
+```
+
+### Relative Risk
+There is also a function for computing an approximate confidence interval for 
+the relative risk (RR).
+```{r}
+## Example from Wikipedia
+rrCI(a = 15, b = 135, c = 100, d = 150)
+rrCI(a = 75, b = 75, c = 100, d = 150)
+```
+
+
+## AUC
+### Estimation
+There are two functions that can be used to calculate and test AUC values. First
+function AUC, which computes the area under the receiver operating characteristic 
+curve (AUC under ROC curve) using the connection of AUC to the Wilcoxon rank sum 
+test. We use some random data and groups to demonstrate the use of this function.
+```{r}
+x <- c(runif(50, max = 0.6), runif(50, min = 0.4))
+g <- c(rep(0, 50), rep(1, 50))
+AUC(x, group = g)
+```
+
+Sometimes the labels of the group should be switched to avoid an AUC smaller 
+than 0.5, which represents a result worse than a pure random choice.
+```{r}
+g <- c(rep(1, 50), rep(0, 50))
+AUC(x, group = g)
+## no switching
+AUC(x, group = g, switchAUC = FALSE)
+```
+
+
+### Testing
+We can also perform statistical tests for AUC. First, the one-sample test which
+corresponds to the Wilcoxon signed rank test.
+```{r}
+g <- c(rep(0, 50), rep(1, 50))
+AUC.test(pred1 = x, lab1 = g)
+```
+
+We can also compare two AUC using the test of Hanley and McNeil (1982).
+```{r}
+x2 <- c(runif(50, max = 0.7), runif(50, min = 0.3))
+g2 <- c(rep(0, 50), rep(1, 50))
+AUC.test(pred1 = x, lab1 = g, pred2 = x2, lab2 = g2)
+```
+
+
+### Pairwise
+There is also a function for pairwise comparison if there are more than two 
+groups.
+```{r}
+x3 <- c(x, x2)
+g3 <- c(g, c(rep(2, 50), rep(3, 50)))
+pairwise.auc(x = x3, g = g3)
+```
+
+In addition to the pairwise.auc there are further functions for pairwise 
+comparisons.
+
+
+## Pairwise Comparisons
+Often we are in a situation that we want to compare more than two groups 
+pairwise. 
+
+### FC and logFC
+In the analysis of omics data, the FC or logFC are important 
+measures and are often used in combination with (adjusted) p values.
+```{r}
+x <- rnorm(100) ## assumed as log-data
+g <- factor(sample(1:4, 100, replace = TRUE))
+levels(g) <- c("a", "b", "c", "d")
+## modified FC
+pairwise.fc(x, g)
+## "true" FC
+pairwise.fc(x, g, mod.fc = FALSE)
+## without any transformation
+pairwise.logfc(x, g)
+```
+
+The function returns a modified FC. That is, if the FC is smaller than 1 it is
+transformed to -1/FC. One can also use other functions than the mean for the
+aggregation of the data.
+```{r}
+pairwise.logfc(x, g, ave = median)
+```
+
+### Arbitrary Criteria
+Furthermore, function pairwise.fun enables the application of arbitrary functions
+for pairwise comparisons.
+```{r}
+pairwise.wilcox.test(airquality$Ozone, airquality$Month, 
+                     p.adjust.method = "none")
+## To avoid the warnings
+library(exactRankTests)
+pairwise.fun(airquality$Ozone, airquality$Month, 
+             fun = function(x, y) wilcox.exact(x, y)$p.value)
+```
+
+
+## Binary Classification
+### PPV and NPV
+In case of medical diagnostic tests, usually sensitivity and specificity of
+the tests are known and there is also at least a rough estimate of the 
+prevalence of the tested disease. In the practival application, the positive
+predictive value (PPV) and the negative predictive value are of crucial 
+importance.
+```{r}
+## Example: HIV test 
+## 1. ELISA screening test (4th generation)
+predValues(sens = 0.999, spec = 0.998, prev = 0.001)
+## 2. Western-Plot confirmation test
+predValues(sens = 0.998, spec = 0.999996, prev = 1/3)
+```
+
+
+### Performance Measures
+In the development of diagnostic tests and more general in binary classification
+a variety of performance measures can be found in literature. Function 
+perfMeasures computes several of them.
+```{r}
+## example from dataset infert
+fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
+pred <- predict(fit, type = "response")
+
+## with group numbers
+perfMeasures(pred, truth = infert$case, namePos = 1)
+
+## with group names
+my.case <- factor(infert$case, labels = c("control", "case"))
+perfMeasures(pred, truth = my.case, namePos = "case")
+```
+
+
+### Hosmer-Lemeshow and le Cessie-van Houwelingen-Copas-Hosmer
+These tests are used to investigate the goodness of fit in logistic regression.
+```{r}
+## Hosmer-Lemeshow goodness of fit tests for C and H statistic 
+HLgof.test(fit = pred, obs = infert$case)
+## e Cessie-van Houwelingen-Copas-Hosmer global goodness of fit test
+HLgof.test(fit = pred, obs = infert$case, 
+           X = model.matrix(case ~ spontaneous+induced, data = infert))
+```
+
+
+### Sample Size Calculation
+Given an expected sensitivity and specificity we can compute sample size, 
+power, delta or significance level of diagnostic test.
+```{r}
+## see n2 on page 1202 of Chu and Cole (2007)
+power.diagnostic.test(sens = 0.99, delta = 0.14, power = 0.95) # 40
+power.diagnostic.test(sens = 0.99, delta = 0.13, power = 0.95) # 43
+power.diagnostic.test(sens = 0.99, delta = 0.12, power = 0.95) # 47
+```
+
+The sample size planning for developing binary classifiers in case of high
+dimensional data, we can apply function ssize.pcc, which is based on the 
+probability of correct classification (PCC).
+```{r}
+## see Table 2 of Dobbin et al. (2008)
+g <- 0.1
+fc <- 1.6
+ssize.pcc(gamma = g, stdFC = fc, nrFeatures = 22000)
+```
+
+## Sample Size: Two Negative Binomial Rates
+When we consider two negative binomial rates, we can compute sample size or
+power applying function power.nb.test.
+```{r}
+## examples from Table III in Zhu and Lakkis (2014)
+power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 1)
+power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 2)
+power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 3)
+```
+
+
+## Multiple Imputation t-Test
+Function mi.t.test can be used to compute a multiple imputation t-test by applying
+the approch of Rubin (1987) in combination with the adjustment of 
+Barnard and Rubin (1999).
+```{r}
+## Generate some data
+set.seed(123)
+x <- rnorm(25, mean = 1)
+x[sample(1:25, 5)] <- NA
+y <- rnorm(20, mean = -1)
+y[sample(1:20, 4)] <- NA
+pair <- c(rnorm(25, mean = 1), rnorm(20, mean = -1))
+g <- factor(c(rep("yes", 25), rep("no", 20)))
+D <- data.frame(ID = 1:45, variable = c(x, y), pair = pair, group = g)
+
+## Use Amelia to impute missing values
+library(Amelia)
+res <- amelia(D, m = 10, p2s = 0, idvars = "ID", noms = "group")
+
+## Per protocol analysis (Welch two-sample t-test)
+t.test(variable ~ group, data = D)
+## Intention to treat analysis (Multiple Imputation Welch two-sample t-test)
+mi.t.test(res$imputations, x = "variable", y = "group")
+
+## Per protocol analysis (Two-sample t-test)
+t.test(variable ~ group, data = D, var.equal = TRUE)
+## Intention to treat analysis (Multiple Imputation two-sample t-test)
+mi.t.test(res$imputations, x = "variable", y = "group", var.equal = TRUE)
+
+## Specifying alternatives
+mi.t.test(res$imputations, x = "variable", y = "group", alternative = "less")
+mi.t.test(res$imputations, x = "variable", y = "group", alternative = "greater")
+
+## One sample test
+t.test(D$variable[D$group == "yes"])
+mi.t.test(res$imputations, x = "variable", subset = D$group == "yes")
+mi.t.test(res$imputations, x = "variable", mu = -1, subset = D$group == "yes",
+          alternative = "less")
+mi.t.test(res$imputations, x = "variable", mu = -1, subset = D$group == "yes",
+          alternative = "greater")
+
+## paired test
+t.test(D$variable, D$pair, paired = TRUE)
+mi.t.test(res$imputations, x = "variable", y = "pair", paired = TRUE)
+```
+
+
+## Omics Data
+### Aggregating Technical Replicates
+In case of omics experiments it is often the case that technical replicates 
+are determined and hence it is part of the preprocessing of the raw data to 
+aggregate these technical replicates. This is the purpose of function repMeans.
+```{r}
+M <- matrix(rnorm(100), ncol = 5)
+FL <- matrix(rpois(100, lambda = 10), ncol = 5) # only for this example
+repMeans(x = M, flags = FL, use.flags = "max", ndups = 5, spacing = 4)
+```
+
+
+### 1- and 2-Way ANOVA
+Functions oneWayAnova and twoWayAnova return a function that can be used
+to perform a 1- or 2-way ANOVA, respectively.
+```{r}
+af <- oneWayAnova(c(rep(1,5),rep(2,5)))
+## p value
+af(rnorm(10))
+x <- matrix(rnorm(12*10), nrow = 10)
+## 2-way ANOVA with interaction
+af1 <- twoWayAnova(c(rep(1,6),rep(2,6)), rep(c(rep(1,3), rep(2,3)), 2))
+## p values
+apply(x, 1, af1)
+## 2-way ANOVA without interaction
+af2 <- twoWayAnova(c(rep(1,6),rep(2,6)), rep(c(rep(1,3), rep(2,3)), 2), 
+                   interaction = FALSE)
+## p values
+apply(x, 1, af2)
+```
+
+
+### Correlation Distance Matrix
+In the analysis of omics data correlation and absolute correlation distance
+matrices are often used during quality control. Function corDist can compute
+the Pearson, Spearman, Kendall or Cosine sample correlation and absolute correlation
+as well as the minimum covariance determinant or the orthogonalized 
+Gnanadesikan-Kettenring correlation and absolute correlation.
+```{r}
+M <- matrix(rcauchy(1000), nrow = 5)
+## Pearson
+corDist(M)
+## Spearman
+corDist(M, method = "spearman")
+## Minimum Covariance Determinant
+corDist(M, method = "mcd")
+```
+
+
+### MAD Matrix
+In case of outliers the MAD may be useful as dispersion measure.
+```{r}
+madMatrix(t(M))
+```
+
+
+### Similarity Matrices
+First, we can plot a similarity matrix based on correlation.
+```{r, fig.width=8, fig.height=7}
+M <- matrix(rnorm(1000), ncol = 20)
+colnames(M) <- paste("Sample", 1:20)
+M.cor <- cor(M)
+corPlot(M.cor, minCor = min(M.cor), labels = colnames(M))
+```
+
+Next, we can use the MAD.
+```{r, fig.width=8, fig.height=7}
+## random data
+x <- matrix(rnorm(1000), ncol = 10)
+## outliers
+x[1:20,5] <- x[1:20,5] + 10
+madPlot(x, new = TRUE, maxMAD = 2.5, labels = TRUE,
+        title = "MAD: Outlier visible")
+## in contrast
+corPlot(x, new = TRUE, minCor = -0.5, labels = TRUE,
+        title = "Correlation: Outlier masked")
+```
+
+
+### Colors for Heatmaps
+Nowadays there are better solutions e.g. provided by Bioconductor package 
+complexHeatmaps. This was my solution to get a better coloring of heatmaps.
+```{r, fig.width=7, fig.height=9}
+## generate some random data
+data.plot <- matrix(rnorm(100*50, sd = 1), ncol = 50)
+colnames(data.plot) <- paste("patient", 1:50)
+rownames(data.plot) <- paste("gene", 1:100)
+data.plot[1:70, 1:30] <- data.plot[1:70, 1:30] + 3
+data.plot[71:100, 31:50] <- data.plot[71:100, 31:50] - 1.4
+data.plot[1:70, 31:50] <- rnorm(1400, sd = 1.2)
+data.plot[71:100, 1:30] <- rnorm(900, sd = 1.2)
+nrcol <- 128
+## Load required packages
+library(gplots)
+library(RColorBrewer)
+myCol <- rev(colorRampPalette(brewer.pal(10, "RdBu"))(nrcol))
+heatmap.2(data.plot, col =  myCol, trace = "none", tracecol = "black",
+          main = "standard colors")
+farbe <- heatmapCol(data = data.plot, col = myCol, 
+                    lim = min(abs(range(data.plot)))-1)
+heatmap.2(data.plot, col = farbe, trace = "none", tracecol = "black",
+          main = "heatmapCol colors")
+```
+
+
+## String Alignment
+### String Distances
+In Bioinformatics the (pairwise and multiple) alignment of strings is an 
+important topic. For this one can use the distance or similarity between 
+strings. The Hamming and the the Levenshtein (edit) distance are 
+implemented in function stringDist.
+```{r}
+x <- "GACGGATTATG"
+y <- "GATCGGAATAG"
+## Hamming distance
+stringDist(x, y)
+## Levenshtein distance
+d <- stringDist(x, y)
+d
+```
+
+In case of the Levenshtein (edit) distance, the respective scoring and traceback 
+matrices are attached as attributes to the result.
+```{r}
+attr(d, "ScoringMatrix")
+attr(d, "TraceBackMatrix")
+```
+The characters in the trace-back matrix reflect insertion of a gap in string y 
+(d: deletion), match (m), mismatch (mm), and insertion of a gap in string x (i). 
+
+### String Similarities
+The function stringSim computes the optimal alignment scores for global 
+(Needleman-Wunsch) and local (Smith-Waterman) alignments with constant gap penalties.
+Scoring and trace-back matrix are again attached as attributes to the results. 
+```{r}
+## optimal global alignment score
+d <- stringSim(x, y)
+d
+attr(d, "ScoringMatrix")
+attr(d, "TraceBackMatrix")
+
+## optimal local alignment score
+d <- stringSim(x, y, global = FALSE)
+d
+attr(d, "ScoringMatrix")
+attr(d, "TraceBackMatrix")
+```
+
+The entry stop indicates that the minimum similarity score has been reached.
+
+
+### Optimal Alignment
+Finally, the function traceBack computes an optimal global or local alignment 
+based on a trace back matrix as provided by function stringDist or stringSim.
+```{r}
+x <- "GACGGATTATG"
+y <- "GATCGGAATAG"
+## Levenshtein distance
+d <- stringDist(x, y)
+## optimal global alignment
+traceBack(d)
+
+## Optimal global alignment score
+d <- stringSim(x, y)
+## optimal global alignment
+traceBack(d)
+
+## Optimal local alignment score
+d <- stringSim(x, y, global = FALSE)
+## optimal local alignment
+traceBack(d, global = FALSE)
+```
+
+
+## sessionInfo
+```{r}
+sessionInfo()
+```
