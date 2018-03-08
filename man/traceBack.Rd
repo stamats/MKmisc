@@ -5,8 +5,8 @@
 Function to trace back
 }
 \description{
-Function computes an optimal global alignment based on a trace back matrix 
-as provided by function \code{\link{stringDist}}.
+Function computes an optimal global or local alignment based on a trace back
+matrix as provided by function \code{\link{stringDist}} or \code{\link{stringSim}}.
 }
 \usage{
 traceBack(D, global = TRUE)
@@ -17,7 +17,7 @@ traceBack(D, global = TRUE)
   \item{global}{logical,  global or local alignment}
 }
 \details{
-Computes one possible optimal global or local alignment based on the trace back 
+Computes one possible optimal global or local alignment based on the trace back
 matrix saved in an object of class \code{"stringDist"} or \code{"stringSim"}.
 }
 \value{matrix: pairwise global/local alignment}
@@ -27,7 +27,7 @@ matrix saved in an object of class \code{"stringDist"} or \code{"stringSim"}.
 \author{Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 \note{
   The function is mainly for teaching purposes.
-  
+
   For distances between strings and string alignments see Bioconductor package
   \pkg{Biostrings}.
 }
@@ -43,14 +43,14 @@ d <- stringDist(x, y)
 ## optimal global alignment
 traceBack(d)
 
-## Optimal alignment score
+## Optimal global alignment score
 d <- stringSim(x, y)
 ## optimal global alignment
 traceBack(d)
 
-## Optimal alignment score
+## Optimal local alignment score
 d <- stringSim(x, y, global = FALSE)
-## optimal global alignment
-traceBack(d)
+## optimal local alignment
+traceBack(d, global = FALSE)
 }
 \keyword{univar}

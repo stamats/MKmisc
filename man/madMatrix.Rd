@@ -12,13 +12,13 @@ madMatrix(x)
   \item{x}{ matrix or data.frame }
 }
 \details{
-  This functions computes the so called similarity matrix (based on MAD) 
+  This functions computes the so called similarity matrix (based on MAD)
   for a microarray experiment; cf. Buness et. al. (2004).
 }
 \value{
   matrix of MAD values between colums of \code{x}
 }
-\references{ 
+\references{
   Andreas Buness, Wolfgang Huber, Klaus Steiner, Holger Sueltmann, and
   Annemarie Poustka. arrayMagic: two-colour cDNA microarray quality
   control and preprocessing. Bioinformatics Advance Access published on
@@ -31,7 +31,6 @@ madMatrix(x)
 \seealso{\code{plotMAD}}
 \examples{
 ## only a dummy example
-M <- madMatrix(matrix(rnorm(1000), ncol = 10))
-madPlot(M)
+madMatrix(matrix(rnorm(1000), ncol = 10))
 }
 \keyword{univar}
