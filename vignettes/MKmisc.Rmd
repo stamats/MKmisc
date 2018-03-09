@@ -43,9 +43,9 @@ sd(x)
 
 
 ### Five Number Summary
-There are several functions for descriptive statistics. First, there is a function
-that computes a so-called five number summary which in contrast to function 
-fivenum uses the first and third quartile instead of the lower and upper hing.
+Tthere is a function that computes a so-called five number summary which in 
+contrast to function fivenum uses the first and third quartile instead of the 
+lower and upper hinge.
 ```{r}
 fiveNS(x)
 ```
