@@ -4,6 +4,7 @@ importFrom("grDevices", "colorRampPalette")
 importFrom("robustbase", "covMcd", "covOGK")
 importFrom("RColorBrewer", "brewer.pal")
 export(simCorVars,
+       glog,
        mi.t.test,
        ssize.pcc,
        predValues,
