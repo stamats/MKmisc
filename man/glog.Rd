@@ -16,7 +16,7 @@ glog(x, base = exp(1))
 \details{
   The function computes
   \deqn{\log(x + \sqrt{x^2 + 1}) - \log(2)}{log(x + sqrt(x^2 + 1)) - log(2)}
-  where the first part corresponds to the area hyperbolic sine. Subtraction
+  where the first part corresponds to the area hyperbolic sine. Subtracting
   log(2) makes the function asymptotically identical to the logarithm.
 }
 \value{
