@@ -1,5 +1,7 @@
 \name{glog}
 \alias{glog}
+\alias{glog10}
+\alias{glog2}
 \title{ Compute Generalized Logarithm }
 \description{
   The function computes the generalized logarithm which is more or less
@@ -7,6 +9,8 @@
 }
 \usage{
 glog(x, base = exp(1))
+glog10(x)
+glog2(x)
 }
 \arguments{
   \item{x}{ a numeric or complex vector.}
@@ -27,8 +31,10 @@ glog(x, base = exp(1))
 \examples{
 curve(log, from = -3, to = 5)
 curve(glog, from = -3, to = 5, add = TRUE, col = "orange")
+legend("topleft", fill = c("black", "orange"), legend = c("log", "glog"))
 
-curve(log(x, base = 10), from = -3, to = 5)
-curve(glog(x, base = 10), from = -3, to = 5, add = TRUE, col = "orange")
+curve(log10(x), from = -3, to = 5)
+curve(glog10(x), from = -3, to = 5, add = TRUE, col = "orange")
+legend("topleft", fill = c("black", "orange"), legend = c("log10", "glog10"))
 }
 \keyword{univar}

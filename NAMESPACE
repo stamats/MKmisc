@@ -5,6 +5,8 @@ importFrom("robustbase", "covMcd", "covOGK")
 importFrom("RColorBrewer", "brewer.pal")
 export(simCorVars,
        glog,
+       glog10,
+       glog2,
        melt.long,
        mi.t.test,
        ssize.pcc,

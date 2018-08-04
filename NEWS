@@ -5,7 +5,7 @@
 ###########################################################
 ## Version 1.1
 ###########################################################
-- added new function glog to compute generalized logarithm
+- added new function glog, glog10, glog2 to compute generalized logarithm
 - added new function melt.long to transform a data.frame form wide to long
   form
 

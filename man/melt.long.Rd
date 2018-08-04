@@ -23,16 +23,17 @@ melt.long(data, select, group)
 %\references{}
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de} }
 \examples{
+library(ggplot2)
+## some random data
 test <- data.frame(x = rnorm(10), y = rnorm(10), z = rnorm(10))
 test.long <- melt.long(test)
 test.long
-melt.long(test, select = 1:2)
+ggplot(test.long, aes(x = variable, y = value)) +
+  geom_boxplot(aes(fill = variable))
+## introducing an additional grouping variable
 group <- factor(rep(c("a","b"), each = 5))
 test.long.gr <- melt.long(test, select = 1:2, group = group)
 test.long.gr
-library(ggplot2)
-ggplot(test.long, aes(x = variable, y = value)) +
-  geom_boxplot(aes(fill = variable))
 ggplot(test.long.gr, aes(x = variable, y = value, fill = group)) +
   geom_boxplot()
 }
