@@ -2,15 +2,21 @@
 \alias{glog}
 \alias{glog10}
 \alias{glog2}
-\title{ Compute Generalized Logarithm }
+\alias{inv.glog}
+\alias{inv.glog10}
+\alias{inv.glog2}
+\title{ Compute Generalized Logarithm}
 \description{
-  The function computes the generalized logarithm which is more or less
-  identical to the area hyperbolic sine; see details.
+  The functions compute the generalized logarithm, which is more or less
+  identical to the area hyperbolic sine, and their inverse; see details.
 }
 \usage{
 glog(x, base = exp(1))
 glog10(x)
 glog2(x)
+inv.glog(x, base = exp(1))
+inv.glog10(x)
+inv.glog2(x)
 }
 \arguments{
   \item{x}{ a numeric or complex vector.}
@@ -36,5 +42,10 @@ legend("topleft", fill = c("black", "orange"), legend = c("log", "glog"))
 curve(log10(x), from = -3, to = 5)
 curve(glog10(x), from = -3, to = 5, add = TRUE, col = "orange")
 legend("topleft", fill = c("black", "orange"), legend = c("log10", "glog10"))
+
+inv.glog(glog(10))
+inv.glog(glog(10, base = 3), base = 3)
+inv.glog10(glog10(10))
+inv.glog2(glog2(10))
 }
 \keyword{univar}

@@ -96,6 +96,14 @@ curve(glog10(x), from = -3, to = 5, add = TRUE, col = "orange")
 legend("topleft", fill = c("black", "orange"), legend = c("log10", "glog10"))
 ```
 
+There are also functions that compute the inverse of the generalized logarithm.
+```{r}
+inv.glog(glog(10))
+inv.glog(glog(10, base = 3), base = 3)
+inv.glog10(glog10(10))
+inv.glog2(glog2(10))
+```
+
 
 ### Simulate Correlated Variables
 To demonstrate Pearson correlation in my lectures, I have written this simple
