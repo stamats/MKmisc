@@ -259,7 +259,6 @@ rrCI(a = 15, b = 135, c = 100, d = 150)
 rrCI(a = 75, b = 75, c = 100, d = 150)
 ```
 
-
 ## AUC
 ### Estimation
 There are two functions that can be used to calculate and test AUC values. First
@@ -381,6 +380,21 @@ perfMeasures(pred, truth = infert$case, namePos = 1)
 ## with group names
 my.case <- factor(infert$case, labels = c("control", "case"))
 perfMeasures(pred, truth = my.case, namePos = "case")
+```
+
+### Optimal Cutoff
+The function optCutoff computes the optimal cutoff for various performance 
+weasures for binary classification. More precisely, all performance measures 
+that are implemented in function perfMeasures.
+```{r}
+## example from dataset infert
+fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
+pred <- predict(fit, type = "response")
+optCutoff(pred, truth = infert$case, namePos = 1)
+optCutoff(pred, truth = infert$case, namePos = 1,
+          perfMeasure = "balanced Brier score", max = FALSE)
+optCutoff(pred, truth = infert$case, namePos = 1,
+          perfMeasure = "area under the ROC curve (AUC)")
 ```
 
 

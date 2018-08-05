@@ -10,6 +10,10 @@
 - added new function melt.long to transform a data.frame form wide to long
   form
 - added new functions to scale axes in ggplot2 plots by glog and neglog
+- extended function perfMeasures by argument cutoff, predictions are no longer
+  restricted to [0,1]
+- added new function optCutoff to compute optimal cutoff for various performance
+  measures for binary classification
 
 ###########################################################
 ## Version 1.0

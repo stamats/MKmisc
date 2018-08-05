@@ -5,16 +5,17 @@
   The function computes various performance weasures for binary classification.
 }
 \usage{
-perfMeasures(pred, pred.group, truth, namePos)
+perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5)
 }
 \arguments{
-  \item{pred}{ numeric vector in $[0,1]$ with predictions (probability to belong to
-  positive group). }
+  \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
+  to belong to the positive group. }
   \item{pred.group}{ vector or factor including the predicted group. If missing,
-  \code{pred.group} is computed from \code{pred}, where \code{pred >= 0.5} is
+  \code{pred.group} is computed from \code{pred}, where \code{pred >= cutoff} is
   classified as positive.}
   \item{truth}{ true grouping vector or factor. }
   \item{namePos}{ value representing the positive group.}
+  \item{cutoff}{ cutoff value used for classification.}
 }
 \details{
   The function computes various performance measures. The measures are:
@@ -27,6 +28,10 @@ perfMeasures(pred, pred.group, truth, namePos)
   Cohen's kappa coefficient, area under the ROC curve (AUC), Gini index,
   Brier score, positive Brier score, negative Brier score, and balanced Brier
   score.
+
+  If the predictions (\code{pred}) are not in the interval [0,1] the standard
+  logistic function is applied to transform the values of \code{pred - cutoff}
+  to [0,1].
 }
 \value{
   \code{data.frame} with names of the performance measures and their respective
@@ -92,5 +97,9 @@ perfMeasures(pred, truth = infert$case, namePos = 1)
 ## with group names
 my.case <- factor(infert$case, labels = c("control", "case"))
 perfMeasures(pred, truth = my.case, namePos = "case")
+
+## on the scale of the linear predictors
+pred2 <- predict(fit)
+perfMeasures(pred2, truth = infert$case, namePos = 1, cutoff = 0)
 }
 \keyword{univar}

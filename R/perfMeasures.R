@@ -1,16 +1,18 @@
-perfMeasures <- function(pred, pred.group, truth, namePos){
+perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
-  stopifnot(all(pred <= 1) | all(pred >= 0))
   if(!is.factor(truth)) truth <- factor(truth)
   stopifnot(nlevels(truth) == 2)
   if(!is.character(namePos)) namePos <- as.character(namePos)
+  stopifnot(namePos %in% levels(truth))
+  stopifnot(is.numeric(cutoff))
+  stopifnot(length(cutoff) == 1)
   if(missing(pred.group)){
     pred.group <- character(length(pred))
-    pred.group[pred >= 0.5] <- namePos
+    pred.group[pred >= cutoff] <- namePos
     nam <- levels(truth)
     nameNeg <- nam[nam != namePos]
-    pred.group[pred < 0.5] <- nameNeg
+    pred.group[pred < cutoff] <- nameNeg
     pred.group <- factor(pred.group)
     pred.group <- factor(pred.group, levels = c(nameNeg, namePos))
   }
@@ -49,12 +51,20 @@ perfMeasures <- function(pred, pred.group, truth, namePos){
   COHEN <- (ACC - EACC)/(1-EACC)
   AUC <- AUC(pred, group = as.integer(truth == namePos))
   GINI <- 2*AUC - 1
-  BS <- mean((pred-as.integer(truth == namePos))^2)
-  BSP <- mean((1-pred[truth == namePos])^2)
-  BSN <- mean(pred[truth != namePos]^2)
-  BBS <- 0.5*BSP + 0.5*BSN
+  if(all(pred <= 1) & all(pred >= 0)){
+    BS <- mean((pred-as.integer(truth == namePos))^2)
+    BSP <- mean((1-pred[truth == namePos])^2)
+    BSN <- mean(pred[truth != namePos]^2)
+    BBS <- 0.5*BSP + 0.5*BSN
+  }else{
+    pred <- exp(pred-cutoff)/(1 + exp(pred-cutoff))
+    BS <- mean((pred-as.integer(truth == namePos))^2)
+    BSP <- mean((1-pred[truth == namePos])^2)
+    BSN <- mean(pred[truth != namePos]^2)
+    BBS <- 0.5*BSP + 0.5*BSN
+  }
   value <- c(ACC, PCC, PMC, ERATE, SENS, SPEC, PREV, BACC, INF, YOUDEN, PPV,
-              NPV, MARK, F1, MCC, PP, EACC, COHEN, AUC, GINI, BS, BSP, BSN, BBS)
+             NPV, MARK, F1, MCC, PP, EACC, COHEN, AUC, GINI, BS, BSP, BSN, BBS)
   measure <- c("accuracy (ACC)", "probabiliy of correct classification (PCC)",
                "probability of missclassification (PMC)", "error rate",
                "sensitivity", "specificity", "prevalence", "balanced accuracy (BACC)",
