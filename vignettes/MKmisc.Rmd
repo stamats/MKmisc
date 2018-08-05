@@ -125,7 +125,48 @@ thyroid(TSH = 1.5, fT3 = 2.5, fT4 = 14, TSHref = c(0.2, 3.0),
 ```
 
 
-### Change data from wide to long
+### Generalized and Negative Logarithm as Transformations
+We can use the generalized logarithm for transforming the axes in ggplot2 plots.
+```{r}
+library(ggplot2)
+data(mpg)
+p1 <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+p1
+p1 + scale_x_log10()
+p1 + scale_x_glog10()
+p1 + scale_y_log10()
+p1 + scale_y_glog10()
+```
+
+The negative logrithm is for instance useful for displaying p values. The 
+interesting values are on the top. This is for instance used in a so-called
+volcano plot.
+```{r}
+x <- matrix(rnorm(1000, mean = 10), nrow = 10)
+g1 <- rep("control", 10)
+y1 <- matrix(rnorm(500, mean = 11.25), nrow = 10)
+y2 <- matrix(rnorm(500, mean = 9.75), nrow = 10)
+g2 <- rep("treatment", 10)
+group <- factor(c(g1, g2))
+Data <- rbind(x, cbind(y1, y2))
+pvals <- apply(Data, 2, function(x, group) t.test(x ~ group)$p.value,
+               group = group)
+## compute log-fold change
+logfc <- function(x, group){
+  res <- tapply(x, group, mean)
+  log2(res[1]/res[2])
+}
+lfcs <- apply(Data, 2, logfc, group = group)
+ps <- data.frame(pvals = pvals, logfc = lfcs)
+ggplot(ps, aes(x = logfc, y = pvals)) + geom_point() +
+    geom_hline(yintercept = 0.05) + scale_y_neglog10() +
+    geom_vline(xintercept = c(-0.1, 0.1)) + xlab("log-fold change") +
+    ylab("-log10(p value)") + ggtitle("A Volcano Plot")
+```
+
+
+
+### Change Data from Wide to Long
 Often it's better to have the data in a long format than in a wide format; e.g.,
 when plotting with package ggplot2. The necessary transformation can be done
 with function melt.long.

@@ -9,6 +9,7 @@
   compute the generalized logarithm and its inverse
 - added new function melt.long to transform a data.frame form wide to long
   form
+- added new functions to scale axes in ggplot2 plots by glog and neglog
 
 ###########################################################
 ## Version 1.0
