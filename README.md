@@ -1,4 +1,4 @@
-# MKmisc <img src="logo.png" align="right" />
+# MKmisc
 The repository includes the development version of R package MKmisc
 
 Release version: [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/MKmisc)](http://cran.r-project.org/package=MKmisc)
