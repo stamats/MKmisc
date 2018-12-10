@@ -6,6 +6,8 @@ power.welch.t.test <- function (n = NULL, delta = NULL, sd1 = 1, sd2 = 1,
     stop("exactly one of 'n', 'delta', 'sd1', 'sd2', 'power', and 'sig.level' must be NULL")
   if (!is.null(sig.level) && !is.numeric(sig.level) || any(0 > sig.level | sig.level > 1))
     stop("'sig.level' must be numeric in [0, 1]")
+  if (!is.null(power) && !is.numeric(power) || any(0 > power | power > 1))
+    stop("'power' must be numeric in [0, 1]")
   alternative <- match.arg(alternative)
   tsample <- 2
   tside <- switch(alternative, one.sided = 1, two.sided = 2)
