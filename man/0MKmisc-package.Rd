@@ -15,7 +15,7 @@ similarity matrices.
 Package: \tab MKmisc\cr
 Type: \tab Package\cr
 Version: \tab 1.2\cr
-Date: \tab 2018-11-09\cr
+Date: \tab 2018-12-10\cr
 Depends: \tab R(>= 3.0.0)\cr
 Imports: \tab stats, graphics, grDevices, RColorBrewer, robustbase, ggplot2\cr
 Suggests: \tab gplots, Amelia\cr

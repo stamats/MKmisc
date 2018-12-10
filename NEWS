@@ -7,6 +7,8 @@
 ###########################################################
 - added as.numeric in the computation of AUC to avoid integer overflow as
   reported by Mike Harwood
+- added function power.welch.t.test to compute of the two-sample Welch t-test,
+  or determine parameters to obtain a target power.
 
 ###########################################################
 ## Version 1.1

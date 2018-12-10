@@ -429,7 +429,22 @@ fc <- 1.6
 ssize.pcc(gamma = g, stdFC = fc, nrFeatures = 22000)
 ```
 
-## Sample Size: Two Negative Binomial Rates
+## Sample Size 
+### Two-sample Welch t-test
+For computing the sample size of the Welch t-test, we only consider the situation 
+of equal group size (balanced design).
+```{r}
+## identical results as power.t.test, since sd = sd1 = sd2 = 1
+power.welch.t.test(n = 20, delta = 1)
+power.welch.t.test(power = .90, delta = 1)
+power.welch.t.test(power = .90, delta = 1, alternative = "one.sided")
+
+## sd1 = 0.5, sd2 = 1
+power.welch.t.test(delta = 1, sd1 = 0.5, sd2 = 1, power = 0.9)
+```
+
+
+### Two Negative Binomial Rates
 When we consider two negative binomial rates, we can compute sample size or
 power applying function power.nb.test.
 ```{r}
