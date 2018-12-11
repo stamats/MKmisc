@@ -40,7 +40,7 @@ power.nb.test(n = NULL, mu0, mu1, RR, duration = 1, theta, ssize.ratio = 1,
 }
 
 \references{
-  H. Zhu and H. Lakkis. Sample size calculation for comparing two negative
+  H. Zhu and H. Lakkis (2014). Sample size calculation for comparing two negative
   binomial rates. \emph{Statistics in Medicine}, \bold{33}:376-387.
 }
 

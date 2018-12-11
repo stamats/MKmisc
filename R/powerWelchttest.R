@@ -8,8 +8,11 @@ power.welch.t.test <- function (n = NULL, delta = NULL, sd1 = 1, sd2 = 1,
     stop("'sig.level' must be numeric in [0, 1]")
   if (!is.null(power) && !is.numeric(power) || any(0 > power | power > 1))
     stop("'power' must be numeric in [0, 1]")
+  if (!is.null(sd1) && !is.numeric(sd1) || any(0 > sd1))
+    stop("'sd1' must be a positive numeric")
+  if (!is.null(sd2) && !is.numeric(sd2) || any(0 > sd2))
+    stop("'sd2' must be a positive numeric")
   alternative <- match.arg(alternative)
-  tsample <- 2
   tside <- switch(alternative, one.sided = 1, two.sided = 2)
   if (tside == 2 && !is.null(delta))
     delta <- abs(delta)

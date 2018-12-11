@@ -8,9 +8,9 @@ power.welch.t.test(n = NULL, delta = NULL, sd1 = 1, sd2 = 1, sig.level = 0.05,
 }
 \arguments{
  \item{n}{number of observations (per group)}
- \item{delta}{true difference in means}
- \item{sd1}{standard deviation of group 1}
- \item{sd2}{standard deviation of group 2}
+ \item{delta}{(expected) true difference in means}
+ \item{sd1}{(expected) standard deviation of group 1}
+ \item{sd2}{(expected) standard deviation of group 2}
  \item{sig.level}{significance level (Type I error probability)}
  \item{power}{power of test (1 minus Type II error probability)}
  \item{alternative}{one- or two-sided test.  Can be abbreviated.}
@@ -41,6 +41,12 @@ power.welch.t.test(n = NULL, delta = NULL, sd1 = 1, sd2 = 1, sig.level = 0.05,
   \code{note} elements.
 }
 
+\references{
+  S.L. Jan and G. Shieh (2011). Optimal sample sizes for Welch's test under
+  various allocation and cost considerations. \emph{Behav Res Methods}, 43,
+  4:1014-22.
+}
+
 \author{Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 
 \note{
@@ -62,8 +68,8 @@ power.welch.t.test(n = NULL, delta = NULL, sd1 = 1, sd2 = 1, sig.level = 0.05,
  ## sd1 = 0.5, sd2 = 1
  power.welch.t.test(delta = 1, sd1 = 0.5, sd2 = 1, power = 0.9)
 
- ## empirical check
  \donttest{
+ ## empirical check
  M <- 10000
  ps <- numeric(M)
  for(i in seq_len(M)){
