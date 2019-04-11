@@ -215,6 +215,24 @@ normCI(x, sd = 3)
 normCI(x, mean = 2)
 ```
 
+
+### Difference of Means
+We can compute confidence interval for the difference of means assuming 
+normal distributions.
+```{r}
+x <- rnorm(20)
+y <- rnorm(20, mean = 0.5, sd = 2)
+## Welch
+normDiffCI(x, y)
+## classical
+normDiffCI(x, y, var.equal = TRUE)
+## paired
+normDiffCI(x, y, paired = TRUE)
+## compare
+normCI(x-y)
+```
+
+
 ### Quantiles, Median and MAD
 We start with the computation of confidence intervals for quantiles.
 ```{r}

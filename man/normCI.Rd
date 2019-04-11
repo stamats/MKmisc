@@ -17,14 +17,17 @@ normCI(x, mean = NULL, sd = NULL, conf.level = 0.95, na.rm = TRUE)
 }
 \details{
   The standard confidence intervals for mean and standard deviation are
-  computed that can be found in many textbooks.
+  computed that can be found in many textbooks, e.g. Chapter 4 in Altman et al. (2000).
 }
 \value{
   A list with class \code{"confint"} containing the following components:
   \item{estimate}{ the estimated mean and sd. }
   \item{conf.int}{ confidence interval(s) for mean and/or sd. }
 }
-%\references{}
+\references{
+  D. Altman, D. Machin, T. Bryant, M. Gardner (eds). Statistics with Confidence:
+  Confidence Intervals and Statistical Guidelines, 2nd edition 2000.
+}
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 %\note{}
 %\seealso{}
