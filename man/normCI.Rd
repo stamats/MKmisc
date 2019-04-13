@@ -23,6 +23,7 @@ normCI(x, mean = NULL, sd = NULL, conf.level = 0.95, na.rm = TRUE)
   A list with class \code{"confint"} containing the following components:
   \item{estimate}{ the estimated mean and sd. }
   \item{conf.int}{ confidence interval(s) for mean and/or sd. }
+  \item{Infos}{ additional information. }
 }
 \references{
   D. Altman, D. Machin, T. Bryant, M. Gardner (eds). Statistics with Confidence:

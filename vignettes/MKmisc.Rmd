@@ -216,20 +216,47 @@ normCI(x, mean = 2)
 ```
 
 
-### Difference of Means
+### Difference in Means
 We can compute confidence interval for the difference of means assuming 
 normal distributions.
 ```{r}
 x <- rnorm(20)
-y <- rnorm(20, mean = 0.5, sd = 2)
-## Welch
-normDiffCI(x, y)
-## classical
-normDiffCI(x, y, var.equal = TRUE)
+y <- rnorm(20, sd = 2)
 ## paired
 normDiffCI(x, y, paired = TRUE)
 ## compare
 normCI(x-y)
+
+## unpaired
+y <- rnorm(10, mean = 1, sd = 2)
+## classical
+normDiffCI(x, y, method = "classical")
+## Welch (default is in case of function t.test)
+normDiffCI(x, y, method = "welch")
+## Hsu
+normDiffCI(x, y, method = "hsu")
+```
+
+In case of unequal variances and unequal sample sizes per group the classical
+confidence interval may have a bad coverage (too long or too short), as is 
+indicated by the small Monte-Carlo simulation study below.
+```{r}
+M <- 100
+CIhsu <- CIwelch <- CIclass <- matrix(NA, nrow = M, ncol = 2)
+for(i in 1:M){
+  x <- rnorm(10)
+  y <- rnorm(30, sd = 0.1)
+  CIclass[i,] <- normDiffCI(x, y, method = "classical")$conf.int
+  CIwelch[i,] <- normDiffCI(x, y, method = "welch")$conf.int
+  CIhsu[i,] <- normDiffCI(x, y, method = "hsu")$conf.int
+}
+## coverage probabilies
+## classical
+sum(CIclass[,1] < 0 & 0 < CIclass[,2])/M
+## Welch
+sum(CIwelch[,1] < 0 & 0 < CIwelch[,2])/M
+## Hsu
+sum(CIhsu[,1] < 0 & 0 < CIhsu[,2])/M
 ```
 
 

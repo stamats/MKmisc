@@ -2,14 +2,12 @@
 binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
     if (!is.na(pmatch(method, "wilson")))
         method <- "wilson"
-
     METHODS <- c("wald", "wilson", "agresti-coull", "jeffreys", "modified wilson",
                  "modified jeffreys", "clopper-pearson", "arcsine", "logit", "witting")
     method <- pmatch(method, METHODS)
 
     if (is.na(method))
         stop("invalid method")
-
     if (method == -1)
         stop("ambiguous method")
 
@@ -28,12 +26,15 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
     kappa <- qnorm(1-alpha/2)
     p.hat <- x/n
     q.hat <- 1 - p.hat
+    Infos <- NULL
 
     if(method == 1){ # wald
         est <- p.hat
         term2 <- kappa*sqrt(p.hat*q.hat)/sqrt(n)
         CI.lower <- max(0, p.hat - term2)
         CI.upper <- min(1, p.hat + term2)
+        Infos <- term2/kappa
+        names(Infos) <- "standard error of prob"
     }
     if(method == 2){ # wilson
         est <- p.hat
@@ -41,6 +42,8 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
         term2 <- kappa*sqrt(n)/(n + kappa^2)*sqrt(p.hat*q.hat + kappa^2/(4*n))
         CI.lower <-  max(0, term1 - term2)
         CI.upper <- min(1, term1 + term2)
+        Infos <- term2/kappa
+        names(Infos) <- "standard error of prob"
     }
     if(method == 3){ # agresti-coull
         x.tilde <- x + kappa^2/2
@@ -51,6 +54,8 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
         term2 <- kappa*sqrt(p.tilde*q.tilde)/sqrt(n.tilde)
         CI.lower <- max(0, p.tilde - term2)
         CI.upper <- min(1, p.tilde + term2)
+        Infos <- term2/kappa
+        names(Infos) <- "standard error of prob"
     }
     if(method == 4){ # jeffreys
         est <- p.hat
@@ -76,6 +81,8 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
             CI.upper <- 1 - 0.5*qchisq(alpha, 2*(n-x))/n
         else
             CI.upper <- min(1, term1 + term2)
+        Infos <- term2/kappa
+        names(Infos) <- "standard error of prob"
     }
     if(method == 6){ # modified jeffreys
         est <- p.hat
@@ -142,7 +149,7 @@ binomCI <- function(x, n, conf.level = 0.95, method = "wilson", rand = 123){
     attr(CI, "conf.level") <- conf.level
     names(est) <- "prob"
 
-    return(structure(list("estimate" = est, "conf.int" = CI,
+    return(structure(list("estimate" = est, "conf.int" = CI, "Infos" = Infos,
                           "method" = paste(METHODS[method], "confidence interval")),
                      class = "confint"))
 }

@@ -13,6 +13,7 @@ normCI <- function(x, mean = NULL, sd = NULL, conf.level = 0.95, na.rm = TRUE){
   if(conf.level < 0.5 | conf.level > 1)
     stop("'conf.level' has to be in [0.5, 1]")
 
+  Infos <- NULL
   if(is.null(mean)){
     m <- mean(x, na.rm = na.rm)
   }else{
@@ -43,8 +44,11 @@ normCI <- function(x, mean = NULL, sd = NULL, conf.level = 0.95, na.rm = TRUE){
     k <- qnorm(1-alpha/2)
   }
   if(is.null(mean)){
-    CI.lower.mean <- m - k*s/sqrt(n)
-    CI.upper.mean <- m + k*s/sqrt(n)
+    sem <- s/sqrt(n)
+    names(sem) <- "SE of mean"
+    CI.lower.mean <- m - k*sem
+    CI.upper.mean <- m + k*sem
+    Infos <- sem
   }
   if(is.null(sd)){
     CI.lower.sd <- sqrt(n-1)*s/sqrt(qchisq(1-alpha/2, df = n-1))
@@ -68,7 +72,7 @@ normCI <- function(x, mean = NULL, sd = NULL, conf.level = 0.95, na.rm = TRUE){
   }
   attr(CI, "conf.level") <- conf.level
 
-  return(structure(list("estimate" = est, "conf.int" = CI,
+  return(structure(list("estimate" = est, "conf.int" = CI, "Infos" = Infos,
                         method = "Exact confidence interval(s)"),
                    class = "confint"))
 }
@@ -87,10 +91,23 @@ print.confint <- function (x, digits = getOption("digits"), prefix = "\t", ...) 
         " percent confidence interval:\n", sep = "")
   }
   print(out, digits = digits, ...)
-  cat("\n")
   if (!is.null(x$estimate)) {
-    cat("sample estimates:\n")
+    cat("\n")
+    if(length(x$estimate) == 1) cat("sample estimate:\n")
+    if(length(x$estimate) > 1) cat("sample estimates:\n")
     print(x$estimate, digits = digits, ...)
+  }
+  if (!is.null(x$Infos)) {
+    cat("\n")
+    cat("additional information:\n")
+    if(length(x$Infos) > 1){
+      for(i in seq_len(length(x$Infos))){
+        if(i > 1) cat("\n")
+        print(x$Infos[[i]], digits = digits, ...)
+      }
+    }else{
+      print(x$Infos, digits = digits, ...)
+    }
   }
   cat("\n")
   invisible(x)
