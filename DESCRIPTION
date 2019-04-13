@@ -1,6 +1,6 @@
 Package: MKmisc
 Version: 1.3
-Date: 2019-04-11
+Date: 2019-04-13
 Title: Miscellaneous Functions from M. Kohl
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de", 

@@ -34,9 +34,11 @@ export(simCorVars,
        madCI,
        normCI,
        normDiffCI,
+       hsu.t.test,
        power.diagnostic.test,
        power.nb.test,
        power.welch.t.test,
+       power.hsu.t.test,
        AUC,
        AUC.test,
        binomCI,
@@ -63,12 +65,13 @@ export(simCorVars,
        pairwise.fun,
        qbxp.stats,
        qboxplot,
-       qboxplot.default,
        repMeans,
        thyroid,
        twoWayAnova)
 
 S3method(qboxplot, default)
 S3method(qboxplot, formula)
+S3method(hsu.t.test, default)
+S3method(hsu.t.test, formula)
 S3method(mi.t.test, default)
 S3method(print, confint)

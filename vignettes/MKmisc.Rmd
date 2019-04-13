@@ -304,6 +304,115 @@ rrCI(a = 15, b = 135, c = 100, d = 150)
 rrCI(a = 75, b = 75, c = 100, d = 150)
 ```
 
+
+## Sample Size 
+### Welch Two-Sample t-Test
+For computing the sample size of the Welch t-test, we only consider the situation 
+of equal group size (balanced design).
+```{r}
+## identical results as power.t.test, since sd = sd1 = sd2 = 1
+power.welch.t.test(n = 20, delta = 1)
+power.welch.t.test(power = .90, delta = 1)
+power.welch.t.test(power = .90, delta = 1, alternative = "one.sided")
+
+## sd1 = 0.5, sd2 = 1
+power.welch.t.test(delta = 1, sd1 = 0.5, sd2 = 1, power = 0.9)
+```
+
+
+### Hsu Two-Sample t-Test
+For computing the sample size of the Hsu t-test, we only consider the situation 
+of equal group size (balanced design).
+```{r}
+## slightly more conservative than Welch t-test
+power.hsu.t.test(n = 20, delta = 1)
+power.hsu.t.test(power = .90, delta = 1)
+power.hsu.t.test(power = .90, delta = 1, alternative = "one.sided")
+
+## sd1 = 0.5, sd2 = 1
+power.welch.t.test(delta = 0.5, sd1 = 0.5, sd2 = 1, power = 0.9)
+power.hsu.t.test(delta = 0.5, sd1 = 0.5, sd2 = 1, power = 0.9)
+```
+
+
+### Two Negative Binomial Rates
+When we consider two negative binomial rates, we can compute sample size or
+power applying function power.nb.test.
+```{r}
+## examples from Table III in Zhu and Lakkis (2014)
+power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 1)
+power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 2)
+power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 3)
+```
+
+
+## Hsu Two-Sample t-Test
+The Hsu two-sample t-test is an alternative to the Welch two-sample t-test using
+a different formula for computing the degrees of freedom of the respective 
+t-distribution. The following code is taken and adapted from the help page of
+the t.test function.
+```{r}
+t.test(1:10, y = c(7:20))      # P = .00001855
+t.test(1:10, y = c(7:20, 200)) # P = .1245    -- NOT significant anymore
+hsu.t.test(1:10, y = c(7:20))
+hsu.t.test(1:10, y = c(7:20, 200))
+
+## Traditional interface
+with(sleep, t.test(extra[group == 1], extra[group == 2]))
+with(sleep, hsu.t.test(extra[group == 1], extra[group == 2]))
+## Formula interface
+t.test(extra ~ group, data = sleep)
+hsu.t.test(extra ~ group, data = sleep)
+```
+
+
+## Multiple Imputation t-Test
+Function mi.t.test can be used to compute a multiple imputation t-test by applying
+the approch of Rubin (1987) in combination with the adjustment of 
+Barnard and Rubin (1999).
+```{r}
+## Generate some data
+set.seed(123)
+x <- rnorm(25, mean = 1)
+x[sample(1:25, 5)] <- NA
+y <- rnorm(20, mean = -1)
+y[sample(1:20, 4)] <- NA
+pair <- c(rnorm(25, mean = 1), rnorm(20, mean = -1))
+g <- factor(c(rep("yes", 25), rep("no", 20)))
+D <- data.frame(ID = 1:45, variable = c(x, y), pair = pair, group = g)
+
+## Use Amelia to impute missing values
+library(Amelia)
+res <- amelia(D, m = 10, p2s = 0, idvars = "ID", noms = "group")
+
+## Per protocol analysis (Welch two-sample t-test)
+t.test(variable ~ group, data = D)
+## Intention to treat analysis (Multiple Imputation Welch two-sample t-test)
+mi.t.test(res$imputations, x = "variable", y = "group")
+
+## Per protocol analysis (Two-sample t-test)
+t.test(variable ~ group, data = D, var.equal = TRUE)
+## Intention to treat analysis (Multiple Imputation two-sample t-test)
+mi.t.test(res$imputations, x = "variable", y = "group", var.equal = TRUE)
+
+## Specifying alternatives
+mi.t.test(res$imputations, x = "variable", y = "group", alternative = "less")
+mi.t.test(res$imputations, x = "variable", y = "group", alternative = "greater")
+
+## One sample test
+t.test(D$variable[D$group == "yes"])
+mi.t.test(res$imputations, x = "variable", subset = D$group == "yes")
+mi.t.test(res$imputations, x = "variable", mu = -1, subset = D$group == "yes",
+          alternative = "less")
+mi.t.test(res$imputations, x = "variable", mu = -1, subset = D$group == "yes",
+          alternative = "greater")
+
+## paired test
+t.test(D$variable, D$pair, paired = TRUE)
+mi.t.test(res$imputations, x = "variable", y = "pair", paired = TRUE)
+```
+
+
 ## AUC
 ### Estimation
 There are two functions that can be used to calculate and test AUC values. First
@@ -472,78 +581,6 @@ probability of correct classification (PCC).
 g <- 0.1
 fc <- 1.6
 ssize.pcc(gamma = g, stdFC = fc, nrFeatures = 22000)
-```
-
-## Sample Size 
-### Two-sample Welch t-test
-For computing the sample size of the Welch t-test, we only consider the situation 
-of equal group size (balanced design).
-```{r}
-## identical results as power.t.test, since sd = sd1 = sd2 = 1
-power.welch.t.test(n = 20, delta = 1)
-power.welch.t.test(power = .90, delta = 1)
-power.welch.t.test(power = .90, delta = 1, alternative = "one.sided")
-
-## sd1 = 0.5, sd2 = 1
-power.welch.t.test(delta = 1, sd1 = 0.5, sd2 = 1, power = 0.9)
-```
-
-
-### Two Negative Binomial Rates
-When we consider two negative binomial rates, we can compute sample size or
-power applying function power.nb.test.
-```{r}
-## examples from Table III in Zhu and Lakkis (2014)
-power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 1)
-power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 2)
-power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, approach = 3)
-```
-
-
-## Multiple Imputation t-Test
-Function mi.t.test can be used to compute a multiple imputation t-test by applying
-the approch of Rubin (1987) in combination with the adjustment of 
-Barnard and Rubin (1999).
-```{r}
-## Generate some data
-set.seed(123)
-x <- rnorm(25, mean = 1)
-x[sample(1:25, 5)] <- NA
-y <- rnorm(20, mean = -1)
-y[sample(1:20, 4)] <- NA
-pair <- c(rnorm(25, mean = 1), rnorm(20, mean = -1))
-g <- factor(c(rep("yes", 25), rep("no", 20)))
-D <- data.frame(ID = 1:45, variable = c(x, y), pair = pair, group = g)
-
-## Use Amelia to impute missing values
-library(Amelia)
-res <- amelia(D, m = 10, p2s = 0, idvars = "ID", noms = "group")
-
-## Per protocol analysis (Welch two-sample t-test)
-t.test(variable ~ group, data = D)
-## Intention to treat analysis (Multiple Imputation Welch two-sample t-test)
-mi.t.test(res$imputations, x = "variable", y = "group")
-
-## Per protocol analysis (Two-sample t-test)
-t.test(variable ~ group, data = D, var.equal = TRUE)
-## Intention to treat analysis (Multiple Imputation two-sample t-test)
-mi.t.test(res$imputations, x = "variable", y = "group", var.equal = TRUE)
-
-## Specifying alternatives
-mi.t.test(res$imputations, x = "variable", y = "group", alternative = "less")
-mi.t.test(res$imputations, x = "variable", y = "group", alternative = "greater")
-
-## One sample test
-t.test(D$variable[D$group == "yes"])
-mi.t.test(res$imputations, x = "variable", subset = D$group == "yes")
-mi.t.test(res$imputations, x = "variable", mu = -1, subset = D$group == "yes",
-          alternative = "less")
-mi.t.test(res$imputations, x = "variable", mu = -1, subset = D$group == "yes",
-          alternative = "greater")
-
-## paired test
-t.test(D$variable, D$pair, paired = TRUE)
-mi.t.test(res$imputations, x = "variable", y = "pair", paired = TRUE)
 ```
 
 
