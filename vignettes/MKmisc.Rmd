@@ -231,7 +231,7 @@ normCI(x-y)
 y <- rnorm(10, mean = 1, sd = 2)
 ## classical
 normDiffCI(x, y, method = "classical")
-## Welch (default is in case of function t.test)
+## Welch (default as in case of function t.test)
 normDiffCI(x, y, method = "welch")
 ## Hsu
 normDiffCI(x, y, method = "hsu")
