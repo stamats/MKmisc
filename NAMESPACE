@@ -1,9 +1,12 @@
 import("stats", "ggplot2")
+importFrom("utils", "combn")
 importFrom("graphics", "layout", "image", "axis", "box", "par")
 importFrom("grDevices", "colorRampPalette")
 importFrom("robustbase", "covMcd", "covOGK")
 importFrom("RColorBrewer", "brewer.pal")
 importFrom("scales", "trans_new")
+importFrom("limma", "lmFit", "makeContrasts", "contrasts.fit", "eBayes",
+           "topTable", "topTableF")
 export(simCorVars,
        glog,
        glog10,
@@ -35,6 +38,9 @@ export(simCorVars,
        normCI,
        normDiffCI,
        hsu.t.test,
+       mod.t.test,
+       mod.oneway.test,
+       pairwise.mod.t.test,
        power.diagnostic.test,
        power.nb.test,
        power.welch.t.test,

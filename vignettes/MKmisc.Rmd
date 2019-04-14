@@ -346,6 +346,49 @@ power.nb.test(mu0 = 5.0, RR = 2.0, theta = 1/0.5, duration = 1, power = 0.8, app
 ```
 
 
+## Moderated tests based on limma
+### Moderated t-Test
+The function to compute the moderated t-test was motivated by the fact that 
+my students have problems to understand and correctly adapt the code of 
+the limma package.
+```{r}
+## One-sample test
+X <- matrix(rnorm(10*20, mean = 1), nrow = 10, ncol = 20)
+mod.t.test(X)
+
+## Two-sample test
+set.seed(123)
+X <- rbind(matrix(rnorm(5*20), nrow = 5, ncol = 20),
+           matrix(rnorm(5*20, mean = 1), nrow = 5, ncol = 20))
+g2 <- factor(c(rep("group 1", 10), rep("group 2", 10)))
+mod.t.test(X, group = g2)
+
+## Paired two-sample test
+mod.t.test(X, group = g2, paired = TRUE)
+```
+
+
+### Moderated 1-Way ANOVA
+The function to compute a moderated 1-way ANOVA was motivated by the fact that 
+my students have problems to understand and correctly adapt the code of 
+the limma package.
+```{r}
+set.seed(123)
+X <- rbind(matrix(rnorm(5*20), nrow = 5, ncol = 20),
+           matrix(rnorm(5*20, mean = 1), nrow = 5, ncol = 20))
+gr <- factor(c(rep("A1", 5), rep("B2", 5), rep("C3", 5), rep("D4", 5)))
+mod.oneway.test(X, gr)
+```
+
+
+### Pairwise moderated t-tests
+As a optional post-hoc analysis after mod.oneway.test
+```{r}
+mod.oneway.test(X, gr)
+pairwise.mod.t.test(X, gr)
+```
+
+
 ## Hsu Two-Sample t-Test
 The Hsu two-sample t-test is an alternative to the Welch two-sample t-test using
 a different formula for computing the degrees of freedom of the respective 

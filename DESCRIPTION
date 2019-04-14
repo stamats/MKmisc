@@ -1,6 +1,6 @@
 Package: MKmisc
 Version: 1.3
-Date: 2019-04-13
+Date: 2019-04-14
 Title: Miscellaneous Functions from M. Kohl
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de", 
@@ -8,10 +8,10 @@ Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
 Author: Matthias Kohl [aut, cre] (0000-0001-9514-8910)
 Maintainer: Matthias Kohl <Matthias.Kohl@stamats.de>
 Depends: R(>= 3.5.0)
-Imports: stats, graphics, grDevices, RColorBrewer, robustbase, ggplot2, scales
+Imports: stats, utils, graphics, grDevices, RColorBrewer, robustbase, ggplot2, scales, limma
 Suggests: gplots, Amelia, knitr, rmarkdown, exactRankTests, foreach, parallel, doParallel
 VignetteBuilder: knitr
-Description: Contains several functions for statistical data analysis; e.g. for sample size and power calculations, computation of confidence intervals, and generation of similarity matrices.
+Description: Contains several functions for statistical data analysis; e.g. for sample size and power calculations, computation of confidence intervals and tests, and generation of similarity matrices.
 License: LGPL-3
 URL: http://www.stamats.de/
 

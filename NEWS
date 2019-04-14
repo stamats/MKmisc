@@ -12,6 +12,10 @@
 - added function hsu.t.test to compute the Hsu two-sample t-test.
 - added function power.hsu.t.test to compute power of the Hsu two-sample
   t-test, or determine parameters to obtain a target power.
+- added function mod.t.test to compute moderated t-test based on package limma
+- added function mod.oneway.test to compute moderated 1-way ANOVA based on
+  package limma
+- added function pairwise.mod.t.test to compute pairwise moderated t-tests.
 
 ###########################################################
 ## Version 1.2
