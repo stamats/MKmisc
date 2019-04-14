@@ -382,9 +382,10 @@ mod.oneway.test(X, gr)
 
 
 ### Pairwise moderated t-tests
-As a optional post-hoc analysis after mod.oneway.test
+As a optional post-hoc analysis after mod.oneway.test one can use pairwise
+moderated t-tests. One should carefully think about the adjustment of p values
+in this context.
 ```{r}
-mod.oneway.test(X, gr)
 pairwise.mod.t.test(X, gr)
 ```
 
