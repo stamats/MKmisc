@@ -85,7 +85,7 @@ binomCI(x = 42, n = 43, method = "witting")
 
 ## the confidence interval computed by binom.test
 ## corresponds to the Clopper-Pearson interval
-binomCI(x = 42, n = 43, method = "clopper-pearson")$CI
+binomCI(x = 42, n = 43, method = "clopper-pearson")$conf.int
 binom.test(x = 42, n = 43)$conf.int
 }
 \keyword{univar}
