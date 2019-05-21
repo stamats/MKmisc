@@ -5,7 +5,8 @@
   The function computes various performance weasures for binary classification.
 }
 \usage{
-perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5)
+perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
+             weight = 0.5, wACC = weight, wPV = weight, wBS = weight)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -16,18 +17,24 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5)
   \item{truth}{ true grouping vector or factor. }
   \item{namePos}{ value representing the positive group.}
   \item{cutoff}{ cutoff value used for classification.}
+  \item{weight}{ weight used for computing weighted values. Must be in [0,1].}
+  \item{wACC}{ weight used for computing the weighted accuracy. Must be in [0,1].}
+  \item{wPV}{ weight used for computing the weighted predictive value. Must be in [0,1].}
+  \item{wBS}{ weight used for computing the weighted Brier score. Must be in [0,1].}
 }
 \details{
   The function computes various performance measures. The measures are:
   accuracy (ACC), probabiliy of correct classification (PCC), probability of
   missclassification (PMC), error rate, sensitivity, specificity, prevalence,
-  balanced accuracy (BACC), informedness, Youden's J statistic,
-  positive predictive value (PPV), negative predictive value (NPV), markedness,
-  F1 score, Matthews' correlation coefficient (MCC),
-  proportion of positive predictions, expected accuracy,
-  Cohen's kappa coefficient, area under the ROC curve (AUC), Gini index,
-  Brier score, positive Brier score, negative Brier score, and balanced Brier
-  score.
+  no information rate, weighted accuracy (wACC), balanced accuracy (BACC),
+  informedness, Youden's J statistic, positive likelihood ratio (PLR),
+  negative likelihood ratio (NLR), positive predictive value (PPV),
+  negative predictive value (NPV), markedness, weighted predictive value,
+  balanced predictive value, F1 score, Matthews' correlation
+  coefficient (MCC), proportion of positive predictions, expected accuracy,
+  Cohen's kappa coefficient, detection rate, area under the ROC curve (AUC), Gini index,
+  Brier score, positive Brier score, negative Brier score, weighted Brier score,
+  and balanced Brier score.
 
   If the predictions (\code{pred}) are not in the interval [0,1] the standard
   logistic function is applied to transform the values of \code{pred - cutoff}
@@ -39,7 +46,7 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5)
 }
 \references{
   G.W. Brier (1950). Verification of forecasts expressed in terms of probability.
-  \emph{Mon. Wea. Rev.} \bold{78}, 1???3.
+  \emph{Mon. Wea. Rev.} \bold{78}, 1-3.
 
   K.H. Brodersen, C.S. Ong, K.E. Stephan, J.M. Buhmann (2010). The balanced
   accuracy and its posterior distribution. In \emph{Pattern Recognition} (ICPR),
@@ -49,7 +56,7 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5)
   \emph{Educational and Psychological Measurement} \bold{20}, 3746.
 
   T. Fawcett (2006). An introduction to ROC analysis.
-  \emph{Pattern Recognition Letters} \bold{27}, 861???874.
+  \emph{Pattern Recognition Letters} \bold{27}, 861-874.
 
   T.A. Gerds, T. Cai, M. Schumacher (2008). The performance of risk prediction
   models. \emph{Biom J} \bold{50}, 457-479.

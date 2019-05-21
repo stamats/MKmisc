@@ -3,6 +3,14 @@
 ###############################################################################
 
 ###########################################################
+## Version 1.4
+###########################################################
+- Changed encoding of vignette from latin1 to utf8, as requested by B. Ripley
+- Added some more performance measures: no information rate, weighted accuracy,
+  postive likelihood ratio, negative likelihood ratio, weighted predictive value,
+  balanced predictive value, detection rate, weighted Brier score
+
+###########################################################
 ## Version 1.3
 ###########################################################
 - added function normDiffCI to compute confidence intervals for the difference
