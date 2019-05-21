@@ -589,12 +589,14 @@ that are implemented in function perfMeasures.
 fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
 pred <- predict(fit, type = "response")
 optCutoff(pred, truth = infert$case, namePos = 1)
+## doesn't make sense for scoring rules
 optCutoff(pred, truth = infert$case, namePos = 1,
           perfMeasure = "balanced Brier score", max = FALSE)
 optCutoff(pred, truth = infert$case, namePos = 1,
           perfMeasure = "area under the ROC curve (AUC)")
 ```
-
+The computation of an optimal cut-off doesn't make any sense for scoring rules 
+as their computation does not involve any cut-off (discretization).
 
 ### Hosmer-Lemeshow and le Cessie-van Houwelingen-Copas-Hosmer
 These tests are used to investigate the goodness of fit in logistic regression.
