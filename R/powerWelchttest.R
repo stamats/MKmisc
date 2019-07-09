@@ -18,14 +18,14 @@ power.welch.t.test <- function (n = NULL, delta = NULL, sd1 = 1, sd2 = 1,
     delta <- abs(delta)
   p.body <- if (strict && tside == 2)
     quote({
-      nu <- (n - 1) * (sd1+sd2)^2/(sd1^2 + sd2^2)
+      nu <- (n - 1) * (sd1^2+sd2^2)^2/(sd1^4 + sd2^4)
       qu <- qt(sig.level/tside, nu, lower.tail = FALSE)
       sd <- sqrt(sd1^2 + sd2^2)
       pt(qu, nu, ncp = sqrt(n) * delta/sd, lower.tail = FALSE) +
         pt(-qu, nu, ncp = sqrt(n) * delta/sd, lower.tail = TRUE)
     })
   else quote({
-    nu <- (n - 1) * (sd1+sd2)^2/(sd1^2 + sd2^2)
+    nu <- (n - 1) * (sd1^2+sd2^2)^2/(sd1^4 + sd2^4)
     sd <- sqrt(sd1^2 + sd2^2)
     pt(qt(sig.level/tside, nu, lower.tail = FALSE), nu, ncp = sqrt(n)*delta/sd,
        lower.tail = FALSE)
