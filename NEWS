@@ -10,6 +10,9 @@
   dichotomization/discretization
 - Added function perfScores including scores for binary classification
   (no dichotomization needed)
+- Added functions to compute CV and two robust variants.
+- Added functions to compute SNR and two robust variants.
+- Added function to compute various confidence interval for CV.
 
 ###########################################################
 ## Version 1.4

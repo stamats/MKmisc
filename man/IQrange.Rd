@@ -15,7 +15,8 @@ sIQR(x, na.rm = FALSE, type = 7, constant = 2*qnorm(0.75))
   \item{constant}{ standardizing contant; see details below. }
 }
 \details{
-  This function computes quartiles as \code{IQR(x) = quantile(x,3/4) - quantile(x,1/4)}.
+  This function \code{IQrange} computes quartiles as
+  \code{IQR(x) = quantile(x,3/4) - quantile(x,1/4)}.
   The function is identical to function \code{\link[stats]{IQR}}. It was added
   before the \code{type} argument was introduced to function \code{\link[stats]{IQR}}
   in 2010 (r53643, r53644).
