@@ -1,12 +1,14 @@
 \name{perfMeasures}
 \alias{perfMeasures}
-\title{ Compute Performance Measures for Binary Classification }
+\alias{perfScores}
+\title{ Compute Performance Measures and Scores for Binary Classification }
 \description{
-  The function computes various performance weasures for binary classification.
+  The function computes various performance weasures and scores for binary classification.
 }
 \usage{
 perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
-             weight = 0.5, wACC = weight, wPV = weight, wBS = weight)
+             weight = 0.5, wACC = weight, wPV = weight)
+perfScores(pred, truth, namePos, weight = 0.5, wBS = weight)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -23,7 +25,8 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
   \item{wBS}{ weight used for computing the weighted Brier score. Must be in [0,1].}
 }
 \details{
-  The function computes various performance measures. The measures are:
+  The function \code{perfMeasures} computes various performance measures.
+  The measures are:
   accuracy (ACC), probabiliy of correct classification (PCC), probability of
   missclassification (PMC), error rate, sensitivity, specificity, prevalence,
   no information rate, weighted accuracy (wACC), balanced accuracy (BACC),
@@ -32,17 +35,23 @@ perfMeasures(pred, pred.group, truth, namePos, cutoff = 0.5,
   negative predictive value (NPV), markedness, weighted predictive value,
   balanced predictive value, F1 score, Matthews' correlation
   coefficient (MCC), proportion of positive predictions, expected accuracy,
-  Cohen's kappa coefficient, detection rate, area under the ROC curve (AUC), Gini index,
-  Brier score, positive Brier score, negative Brier score, weighted Brier score,
-  and balanced Brier score.
+  Cohen's kappa coefficient, and detection rate.
+
+  These performance measures have in common that they require a dichotomization
+  (discretization) of a computed continuous classification function.
+
+  The function \code{perfScores} computes various performance Scores.
+  The scores are:
+  area under the ROC curve (AUC), Gini index, Brier score, positive Brier score,
+  negative Brier score, weighted Brier score, and balanced Brier score.
 
   If the predictions (\code{pred}) are not in the interval [0,1] the standard
   logistic function is applied to transform the values of \code{pred - cutoff}
   to [0,1].
 }
 \value{
-  \code{data.frame} with names of the performance measures and their respective
-  values.
+  \code{data.frame} with names of the performance measures, respectivey scores
+  and their respective values.
 }
 \references{
   G.W. Brier (1950). Verification of forecasts expressed in terms of probability.
@@ -100,13 +109,20 @@ pred <- predict(fit, type = "response")
 
 ## with group numbers
 perfMeasures(pred, truth = infert$case, namePos = 1)
+perfScores(pred, truth = infert$case, namePos = 1)
 
 ## with group names
 my.case <- factor(infert$case, labels = c("control", "case"))
 perfMeasures(pred, truth = my.case, namePos = "case")
+perfScores(pred, truth = my.case, namePos = "case")
 
 ## on the scale of the linear predictors
 pred2 <- predict(fit)
 perfMeasures(pred2, truth = infert$case, namePos = 1, cutoff = 0)
+perfScores(pred2, truth = infert$case, namePos = 1)
+
+## using weights
+perfMeasures(pred, truth = infert$case, namePos = 1, weight = 0.3)
+perfScores(pred, truth = infert$case, namePos = 1, weight = 0.3)
 }
 \keyword{univar}

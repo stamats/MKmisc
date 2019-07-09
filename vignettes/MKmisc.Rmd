@@ -563,10 +563,10 @@ predValues(sens = 0.998, spec = 0.999996, prev = 1/3)
 ```
 
 
-### Performance Measures
+### Performance Measures and Scores
 In the development of diagnostic tests and more general in binary classification
-a variety of performance measures can be found in literature. Function 
-perfMeasures computes several of them.
+a variety of performance measures and scores can be found in literature. Functions 
+perfMeasures and prefScores compute several of them.
 ```{r}
 ## example from dataset infert
 fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
@@ -574,10 +574,16 @@ pred <- predict(fit, type = "response")
 
 ## with group numbers
 perfMeasures(pred, truth = infert$case, namePos = 1)
+perfScores(pred, truth = infert$case, namePos = 1)
 
 ## with group names
 my.case <- factor(infert$case, labels = c("control", "case"))
 perfMeasures(pred, truth = my.case, namePos = "case")
+perfScores(pred, truth = my.case, namePos = "case")
+
+## using weights
+perfMeasures(pred, truth = infert$case, namePos = 1, weight = 0.3)
+perfScores(pred, truth = infert$case, namePos = 1, weight = 0.3)
 ```
 
 ### Optimal Cutoff
@@ -589,14 +595,10 @@ that are implemented in function perfMeasures.
 fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
 pred <- predict(fit, type = "response")
 optCutoff(pred, truth = infert$case, namePos = 1)
-## doesn't make sense for scoring rules
-optCutoff(pred, truth = infert$case, namePos = 1,
-          perfMeasure = "balanced Brier score", max = FALSE)
-optCutoff(pred, truth = infert$case, namePos = 1,
-          perfMeasure = "area under the ROC curve (AUC)")
 ```
-The computation of an optimal cut-off doesn't make any sense for scoring rules 
-as their computation does not involve any cut-off (discretization).
+The computation of an optimal cut-off doesn't make any sense for continuous 
+scoring rules as their computation does not involve any cut-off 
+(discretization/dichotomization).
 
 ### Hosmer-Lemeshow and le Cessie-van Houwelingen-Copas-Hosmer
 These tests are used to investigate the goodness of fit in logistic regression.

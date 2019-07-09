@@ -37,10 +37,5 @@ optCutoff(pred, truth, namePos, perfMeasure = "Youden's J statistic",
 fit <- glm(case ~ spontaneous+induced, data = infert, family = binomial())
 pred <- predict(fit, type = "response")
 optCutoff(pred, truth = infert$case, namePos = 1)
-## doesn't make sense for scoring rules
-optCutoff(pred, truth = infert$case, namePos = 1,
-          perfMeasure = "balanced Brier score", max = FALSE)
-optCutoff(pred, truth = infert$case, namePos = 1,
-          perfMeasure = "area under the ROC curve (AUC)")
 }
 \keyword{univar}
