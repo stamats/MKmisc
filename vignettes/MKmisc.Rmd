@@ -501,7 +501,7 @@ mi.t.test(res$imputations, x = "variable", y = "pair", paired = TRUE)
 
 ## Imputation of Standard Deviations for Changes from Baseline
 The function imputeSD can be used to impute standard deviations for changes
-for baseline adopting the approach of Section 16.1.3.2 of the Cochrane
+from baseline adopting the approach of Section 16.1.3.2 of the Cochrane
 handbook (2011).
 ```{r}
 SD1 <- c(0.149, 0.022, 0.036, 0.085, 0.125, NA, 0.139, 0.124, 0.038)
