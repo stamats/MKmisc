@@ -1,6 +1,7 @@
 optCutoff <- function(pred, truth, namePos,
                       perfMeasure = "Youden's J statistic",
-                      max = TRUE, parallel = FALSE, ncores){
+                      max = TRUE, parallel = FALSE, ncores,
+                      delta = 0.01){
   stopifnot(length(pred) == length(truth))
   stopifnot(is.numeric(pred))
   if(!is.factor(truth)) truth <- factor(truth)
@@ -9,7 +10,7 @@ optCutoff <- function(pred, truth, namePos,
   stopifnot(namePos %in% levels(truth))
 
   W <- range(pred)
-  cutoffs <- seq(from = W[1]-0.01, to = W[2]+0.01, by = 0.01)
+  cutoffs <- c(W[1]-delta, pred, W[2]+delta)
   perf1 <- perfMeasures(pred = pred, truth = truth, namePos = namePos,
                         cutoff = cutoffs[1])
   ind.perf <- which(perf1[,1] == perfMeasure)

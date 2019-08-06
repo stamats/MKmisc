@@ -7,7 +7,7 @@
 }
 \usage{
 optCutoff(pred, truth, namePos, perfMeasure = "Youden's J statistic",
-          max = TRUE, parallel = FALSE, ncores)
+          max = TRUE, parallel = FALSE, ncores, delta = 0.01)
 }
 \arguments{
   \item{pred}{ numeric values that shall be used for classification; e.g. probabilities
@@ -21,6 +21,8 @@ optCutoff(pred, truth, namePos, perfMeasure = "Youden's J statistic",
   are used to parallelize the computations.}
   \item{ncores}{integer value, number of cores that shall be used to parallelize
   the computations.}
+  \item{delta}{numeric value for setting up grid for optimization; start is 
+  minimum of \code{pred-delta}, end is maximum of \code{pred+delta}.}
 }
 \details{
   The function is ablte to compute the optimal cutoff for various performance
@@ -28,7 +30,8 @@ optCutoff(pred, truth, namePos, perfMeasure = "Youden's J statistic",
   \code{perfMeasures}.
 }
 \value{
-  Optimal cutoff and value of the optimized performance measure.
+  Optimal cutoff and value of the optimized performance measure based on a 
+  simple grid search.
 }
 %\references{}
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}

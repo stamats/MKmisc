@@ -27,7 +27,7 @@ perfMeasures <- function(pred, pred.group, truth, namePos, cutoff = 0.5,
   stopifnot(length(pred.group) == length(truth))
   if(!is.factor(pred.group)) pred.group <- factor(pred.group)
   stopifnot(nlevels(pred.group) == 2)
-  stopifnot(levels(pred.group) == levels(truth))
+  stopifnot(all(levels(truth) %in% levels(pred.group)))
   stopifnot(namePos %in% levels(pred.group))
 
   pred.pos <- pred.group == namePos
