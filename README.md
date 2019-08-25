@@ -16,8 +16,8 @@ multiple imputation and generation of similarity matrices.
 install.packages("MKmisc")
 
 ## Or the development version from GitHub
-# install.packages("devtools")
-devtools::install_github("stamats/MKmisc")
+# install.packages("remotes")
+remotes::install_github("stamats/MKmisc")
 ```
 
 ## Getting started
