@@ -5,8 +5,9 @@
 ###########################################################
 ## Version 1.6
 ###########################################################
+- Added function meanAD to compute the mean absolute deviation.
 - Added function imputeSD to impute standard deviations for changes from
-  baseline following the Cochrane handbook, Section 16.1.3.2
+  baseline following the Cochrane handbook, Section 16.1.3.2.
 - Modified function optCutoff. Should give better results now.
 - Minor change in function perfMeasures to avoid unnecessary error message.
 
