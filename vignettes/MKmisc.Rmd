@@ -41,6 +41,12 @@ sIQR(x)
 sd(x)
 ```
 
+### Mean Absolute Deviation
+The mean absolute deviation under the assumption of symmetry is a robust alternative
+to the sample standard deviation.
+```{r}
+meanAD(x)
+```
 
 ### Five Number Summary
 There is a function that computes a so-called five number summary which in 
