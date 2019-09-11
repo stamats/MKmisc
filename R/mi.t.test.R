@@ -30,8 +30,14 @@ mi.t.test.default <- function(miData, x, y = NULL, alternative = c("two.sided", 
       xi <- miData[[i]][subset, x]
     if(is.null(y))
       yi <- NULL
-    else
-      yi <- miData[[i]][,y]
+    else{
+      if(is.null(subset)){
+        yi <- miData[[i]][,y]
+      }else{
+        yi <- miData[[i]][subset,y]
+        if(is.factor(yi)) yi <- factor(yi)
+      }
+    }
     if(paired){
       xi <- xi-yi
       yi <- NULL
