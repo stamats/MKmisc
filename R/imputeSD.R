@@ -31,7 +31,10 @@ imputeSD <- function(SD1, SD2, SDchange){
   SDchange.min <- sqrt(pmax(SD1^2 + SD2^2 - 2*corr.max*SD1*SD2, 0))
   SDchange.mean <- sqrt(pmax(SD1^2 + SD2^2 - 2*corr.mean*SD1*SD2, 0))
   SDchange.max <- sqrt(pmax(SD1^2 + SD2^2 - 2*corr.min*SD1*SD2, 0))
-
+  SDchange.min[!ind.na] <- SDchange[!ind.na]
+  SDchange.mean[!ind.na] <- SDchange[!ind.na]
+  SDchange.max[!ind.na] <- SDchange[!ind.na]
+  
   ## 5. Return results
   data.frame(SD1 = SD1, SD2 = SD2, SDchange = SDchange, Cor=corr,
              SDchange.min, SDchange.mean, SDchange.max)
