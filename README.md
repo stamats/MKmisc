@@ -12,6 +12,16 @@ multiple imputation and generation of similarity matrices.
 
 
 ## Installation
+The package requires Bioconductor package limma, which can be installed via
+
+```{r, eval = FALSE}
+## Install package BiocManager
+install.packages("BiocManager")
+## Use BiocManager to install limma
+BiocManager::install("limma")
+```
+
+For the installation of package MKmisc use
 
 ```{r, eval = FALSE}
 ## Installation of CRAN version
