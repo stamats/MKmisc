@@ -43,7 +43,8 @@ power.welch.t.test <- function (n = NULL, delta = NULL, sd1 = 1, sd2 = 1,
                     c(1e-07, 1e+07), tol = tol, extendInt = "downX")$root
   else if (is.null(delta))
     delta <- uniroot(function(delta) eval(p.body) - power,
-                     sd * c(1e-07, 1e+07), tol = tol, extendInt = "upX")$root
+                     sqrt(sd1^2 + sd2^2) * c(1e-07, 1e+07), tol = tol, 
+                     extendInt = "upX")$root
   else if (is.null(sig.level))
     sig.level <- uniroot(function(sig.level) eval(p.body) -
                            power, c(1e-10, 1 - 1e-10), tol = tol, extendInt = "yes")$root
