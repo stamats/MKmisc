@@ -6,6 +6,9 @@
 ## Version 1.7
 ###########################################################
 - Changed return value of imputeSD
+- Removed bug in power.welch.t.test reported by Nicholas Lewin-Koh, when
+  delta should be computed for given n, power, etc.
+
 
 ###########################################################
 ## Version 1.6
