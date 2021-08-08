@@ -1,6 +1,6 @@
 Package: MKmisc
-Version: 1.7
-Date: 2021-08-05
+Version: 1.8
+Date: 2021-08-08
 Title: Miscellaneous Functions from M. Kohl
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de", 
@@ -13,5 +13,5 @@ Suggests: gplots, Amelia, knitr, rmarkdown, exactRankTests, foreach, parallel, d
 VignetteBuilder: knitr
 Description: Contains several functions for statistical data analysis; e.g. for sample size and power calculations, computation of confidence intervals and tests, and generation of similarity matrices.
 License: LGPL-3
-URL: http://www.stamats.de/
+URL: https://www.stamats.de/
 

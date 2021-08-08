@@ -26,7 +26,7 @@ ssize.pcc(gamma, stdFC, prev = 0.5, nrFeatures, sigFeatures = 20, verbose = FALS
   approach given in Section~4.4 (ibid.).
   
   The results for prevalence equal to $50\%$ are identical to the numbers computed 
-  by \url{http://linus.nci.nih.gov/brb/samplesize/samplesize4GE.html}. For 
+  by \url{https://brb.nci.nih.gov/brb/samplesize/samplesize4GE.html}. For 
   other prevalences the numbers differ and are larger for our implementation. 
 }
 \value{

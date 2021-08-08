@@ -7,4 +7,4 @@ bibentry(bibtype="Manual",
          language = "English",
          year = year,
          note = note,
-         url = "http://www.stamats.de")
+         url = "https://www.stamats.de")

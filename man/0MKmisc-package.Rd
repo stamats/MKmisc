@@ -14,17 +14,17 @@ similarity matrices.
 \tabular{ll}{
 Package: \tab MKmisc\cr
 Type: \tab Package\cr
-Version: \tab 1.7\cr
-Date: \tab 2021-08-05\cr
+Version: \tab 1.8\cr
+Date: \tab 2021-08-08\cr
 Depends: \tab R(>= 3.5.0)\cr
 Imports: \tab stats, utils, graphics, grDevices, RColorBrewer, robustbase, ggplot2, scales, limma\cr
 Suggests: \tab gplots, Amelia, knitr, rmarkdown, exactRankTests, foreach, parallel, doParallel\cr
 License: \tab LGPL-3\cr
-URL: \tab http://www.stamats.de/\cr
+URL: \tab https://www.stamats.de/\cr
 }
 library(MKmisc)
 }
-\author{ Matthias Kohl \url{http://www.stamats.de}
+\author{ Matthias Kohl \url{https://www.stamats.de}
 
 Maintainer: Matthias Kohl  \email{matthias.kohl@stamats.de}}
 %\references{
