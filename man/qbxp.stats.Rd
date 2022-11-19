@@ -63,7 +63,7 @@ qbxp.stats(x, coef = 1.5, do.conf = TRUE, do.out = TRUE, type = 7)
     Analysis}, eds. D. C. Hoaglin, F. Mosteller and J. W. Tukey.  Wiley.
 
   Chambers, J. M., Cleveland, W. S., Kleiner, B. and Tukey, P. A. (1983)
-  \emph{Graphical Methods for Data Analysis.}  Wadsworth \& Brooks/Cole.
+  \emph{Graphical Methods for Data Analysis.}  Wadsworth & Brooks/Cole.
 }
 \author{ Matthias Kohl \email{Matthias.Kohl@stamats.de}}
 %\note{}

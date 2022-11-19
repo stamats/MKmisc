@@ -71,7 +71,7 @@ mi.t.test(miData, \dots)
 }
 \references{
   Rubin, D. (1987). \emph{Multiple Imputation for Nonresponse in Surveys}.
-  John Wiley \& Sons, New York.
+  John Wiley & Sons, New York.
 
   Barnard, J. and Rubin, D. (1999). Small-Sample Degrees of Freedom with
   Multiple Imputation. \emph{Biometrika}, \bold{86}(4), 948-955.
