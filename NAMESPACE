@@ -6,7 +6,7 @@ importFrom("robustbase", "covMcd", "covOGK")
 importFrom("RColorBrewer", "brewer.pal")
 importFrom("scales", "trans_new")
 importFrom("limma", "lmFit", "makeContrasts", "contrasts.fit", "eBayes",
-           "topTable", "topTableF")
+           "topTable")
 export(simCorVars,
        glog,
        glog10,

@@ -1,13 +1,13 @@
 Package: MKmisc
-Version: 1.9
-Date: 2022-11-19
+Version: 2.0
+Date: 2026-05-07
 Title: Miscellaneous Functions from M. Kohl
 Authors@R: person("Matthias", "Kohl", role = c("aut", "cre"),
                   email = "Matthias.Kohl@stamats.de", 
                   comment = c(ORCID = "0000-0001-9514-8910"))
 Author: Matthias Kohl [aut, cre] (0000-0001-9514-8910)
 Maintainer: Matthias Kohl <Matthias.Kohl@stamats.de>
-Depends: R(>= 3.5.0)
+Depends: R(>= 4.0.0)
 Imports: stats, utils, graphics, grDevices, RColorBrewer, robustbase, ggplot2, scales, limma
 Suggests: gplots, Amelia, knitr, rmarkdown, exactRankTests, foreach, parallel, doParallel
 VignetteBuilder: knitr

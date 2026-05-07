@@ -5,11 +5,14 @@
   Performs moderated 1-Way ANOVAs based on Bioconductor package limma.
 }
 \usage{
-mod.oneway.test(x, group, adjust.method = "BH", sort.by = "none")
+mod.oneway.test(x, group, repeated = FALSE, subject, adjust.method = "BH", 
+                sort.by = "none")
 }
 \arguments{
   \item{x}{a (non-empty) numeric matrix of data values.}
   \item{group}{an optional factor representing the groups.}
+  \item{repeated}{logical indicating whether there are repeated-measures.}
+  \item{subject}{factor with subject IDs; required if \code{repeated = TRUE}.}
   \item{adjust.method}{see \code{\link{p.adjust}}}
   \item{sort.by}{see \code{\link[limma]{toptable}}}, where \code{"logFC"}
   corresponds to difference in means.
@@ -22,10 +25,9 @@ mod.oneway.test(x, group, adjust.method = "BH", sort.by = "none")
   A data.frame with the results.
 }
 \references{
-  B. Phipson, S. Lee, I.J. Majewski, W.S. Alexander, G.H. Smyth (2016). Robust
-  hyperparameter estimation protects against hypervariable genes and improves
-  power to detect differential expression. \emph{Annals of Applied Statistics}
-  10(2), 946-963.
+  Ritchie, M.E., Phipson, B., Wu, D., Hu, Y., Law, C.W., Shi, W., and Smyth, G.K.
+  (2015). limma powers differential expression analyses for RNA-sequencing and
+  microarray studies. \emph{Nucleic Acids Research} 43(7), e47.
 }
 \seealso{\code{\link{oneway.test}}, \code{mod.t.test}}
 \examples{
@@ -43,5 +45,12 @@ ow.test <- function(x, g){
 ow.res <- t(apply(X, 1, ow.test, g = gr))
 colnames(ow.res) <- c("F", "p.value")
 ow.res
+
+## repeated measures
+X <- rbind(matrix(rnorm(6*18), nrow = 6, ncol = 18),
+           matrix(rnorm(6*18, mean = 1), nrow = 6, ncol = 18))
+gr <- factor(c(rep("T1", 6), rep("T2", 6), rep("T3", 6)))
+subjectID <- factor(c(rep(1:6, 3)))
+mod.oneway.test(X, gr, repeated = TRUE, subject = subjectID)
 }
 \keyword{htest}
